@@ -1,0 +1,21 @@
+:root {
+  --color-action: #08a7fd;
+  --color-tertiary: #02669d;
+  --color-secondary: #1d1d1d;
+  --color-senate: url(https://www.buk.edu.ng/sites/default/files/inline-images/edwe.jpg);
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color-scheme: light dark;
+  color: var(--color-secondary);
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+body{
+  margin: 0;
+  padding: 0;
+}
