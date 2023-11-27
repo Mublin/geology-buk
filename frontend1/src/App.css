@@ -26,6 +26,38 @@
 }
 .nav-links .nav-link{
   margin: 0 1rem;
+  position: relative;
+}
+.nav-link .invisible{
+  left: -35px;
+  position: absolute;
+  background-color: var(--color-secondary);
+  min-width: 10rem;
+  top: 22px;
+  display: flex;
+  flex-direction: column;
+  display: none;
+  z-index: 5;
+}
+.invisible{
+  padding: .5rem 0;
+}
+.nav-item{
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+}
+.invisible p{
+  margin: .3rem 2rem;
+}
+.nav-item:hover{
+  color: var(--color-tertiary);
+}
+.nav-link:hover .invisible,
+.invisible:hover{
+  display: block;
+  transform: scale(1);
+  transition: 1s all;
 }
 .content{
   min-height: 88dvh;
@@ -86,7 +118,8 @@ footer .footer h3{
 form{
   background-color: darkslategray;
   width: 60dvw;
-  min-height: 70dvh;
+  min-height: 80dvh;
+  height: 100%;
   box-shadow: 0 0 5px var(--color-secondary);
   display: flex;
   align-items: center;

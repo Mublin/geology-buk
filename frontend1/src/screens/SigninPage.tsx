@@ -1,14 +1,20 @@
-import React, { ChangeEvent, MouseEvent, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { ChangeEvent, MouseEvent, useContext, useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { UserContext } from '../context/useUserHook'
 
 const SigninPage = () => {
+  const navigate = useNavigate()
+  const { state, signInHandler } = useContext(UserContext)
+  const {user } = state
   const [regNo, setRegNo] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const submitHandler = async (e: MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log({regNo, password})
-
+    await signInHandler(regNo, password)
   }
+  useEffect(()=>{
+    user && navigate('/home')
+  },[user])
   return (
     <div className='content'>
       <div className="signin">

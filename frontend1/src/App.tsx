@@ -13,13 +13,17 @@ import CoursesPage from './screens/CoursesPage'
 import CoursePage from './screens/CoursePage'
 import ContactPage from './screens/ContactPage'
 import { UserProvider, initialState } from './context/useUserHook'
+import { ToastContainer } from 'react-toastify'
+import  'react-toastify/dist/ReactToastify.css'
+import AddLecturePage from './screens/AddLecturePage'
 
 function App() {
   return (
     <>
     <BrowserRouter>
-    <UserProvider user={initialState.user} >
+    <UserProvider userDetails={initialState.userDetails} >
       <div className='page'>
+        <ToastContainer position='bottom-center'  />
         <div className='navy'>
         <NavBar/>
         </div>
@@ -27,6 +31,7 @@ function App() {
       <Routes>
         <Route path='/' element={<LandPage />}/>
         <Route path='/home' element={<Homepage />}/>
+        <Route path='/new-note' element={<AddLecturePage />}/>
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/programs' element={<CoursesPage />} />
         <Route path='/programs/:program' element={<CoursePage />} />

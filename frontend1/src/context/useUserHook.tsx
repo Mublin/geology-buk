@@ -1,13 +1,14 @@
 import { ReactElement, createContext, useReducer } from "react"
 import { User } from "../types/types"
 import { useNavigate } from "react-router-dom"
-import { users } from "../data"
+import axios from "axios"
+import { toast } from "react-toastify"
 
 type StateType = {
-    user: User | null
+    userDetails: User | null
 }
 export const initialState: StateType = {
-    user: null
+    userDetails: localStorage.getItem("userDetail") ? JSON.parse(localStorage.getItem('userDetail') as string) : null
 }
 const enum REDUCER_ACTION_TYPE {
     logIn,
@@ -21,11 +22,11 @@ type ReducerAction ={
 const reducer = (state: StateType, action: ReducerAction): StateType =>{
     switch (action.type) {
         case REDUCER_ACTION_TYPE.logIn:
-            return {...state, user: action.payload as User}
+            return {...state, userDetails: action.payload as User}
             case REDUCER_ACTION_TYPE.register:
-                return {...state, user: action.payload as User}
+                return {...state, userDetails: action.payload as User}
                 case REDUCER_ACTION_TYPE.logOut:
-                    return {...state, user: null}
+                    return {...state, userDetails: null}
         default:
             return state;
     }
@@ -35,44 +36,86 @@ const useUserContext = (initState: StateType)=>{
     const [state, dispatch]= useReducer(reducer, initState)
     const navigate = useNavigate()
 
-    const registerHandler = (regNo: string, password: string, email: string)=>{
-        dispatch({
-            type: REDUCER_ACTION_TYPE.register,
-            payload: {
-                email: email,
-                registrationNumber: regNo,
-                name: "from backend",
-                validToken: 'siu'
-            }
-        })
-        navigate('/home')
-    }
-    const signInHandler = (regNo: string, password: string)=>{
-        if (regNo && password) {
-            const user = users.find(x=> {
-                return x.registrationNumber == regNo
+    const registerHandler = async (regNo: string, password: string, email: string)=>{
+        try {
+            console.log({regNo, password})
+            const {data}:{data : {
+                tokened: string,
+                regNo: string,
+                name: string,
+                email: string
+            }} = await axios.post(`http://localhost:9000/api/users/register`, {
+                regNo,
+                email,
+                password
             })
-            if (user) {
+            if (data) {
                 dispatch({
-                    type: REDUCER_ACTION_TYPE.logIn,
+                    type: REDUCER_ACTION_TYPE.register,
                     payload: {
-                        email: user.name,
-                        registrationNumber: user.registrationNumber,
-                        name: user.name,
-                        validToken: user.validToken
+                        email: data.email,
+                        registrationNumber: data.regNo,
+                        name: data.name,
+                        tokened: data.tokened
                     }
                 })
+                localStorage.setItem('userDetail', JSON.stringify({
+                    email: data.email,
+                    registrationNumber: data.regNo,
+                    name: data.name,
+                    tokened: data.tokened
+                }))
                 navigate('/home')
-                return;       
+                toast.success(`Welcome ${data.name}!, enjoy your day`)
+            }else{
+                throw Error("Invalid username or password")
             }
-            alert('user does not exist')
+        } catch (error) {
+            alert(error)
         }
-        alert("invalid credentials")
+    }
+    const signInHandler = async (regNo: string, password: string)=>{
+    try {
+        console.log({regNo, password})
+        const {data} : {data : {
+            tokened: string,
+            regNo: string,
+            name: string,
+            email: string
+        }} = await axios.post(`http://localhost:9000/api/users/signin`, {
+            regNo,
+            password
+        })
+        if (data) {
+            dispatch({
+                type: REDUCER_ACTION_TYPE.logIn,
+                payload: {
+                    email: data.email,
+                    registrationNumber: data.regNo,
+                    name: data.name,
+                    tokened: data.tokened
+                }
+            })
+            localStorage.setItem('userDetail', JSON.stringify({
+                email: data.email,
+                registrationNumber: data.regNo,
+                name: data.name,
+                tokened: data.tokened
+            }))
+            navigate('/home')
+            toast.success(`welcome back ${data.name}!`)
+        }else{
+            throw Error("Invalid username or password")
+        }
+    } catch (error) {
+        alert(error)
+    }
     }
     const logOutHandler = ()=>{
         dispatch({
             type: REDUCER_ACTION_TYPE.logOut,
         })
+        localStorage.removeItem('userDetail')
     }
 
     return { state, registerHandler, signInHandler, logOutHandler}
@@ -83,8 +126,8 @@ type useUserContextType = ReturnType<typeof useUserContext>
 const initialContextState : useUserContextType = {
     state: initialState,
     logOutHandler: ()=>{},
-    signInHandler:  (regNo: string, password: string) =>{},
-    registerHandler: (regNo: string, password: string, email: string) =>{}
+    signInHandler:  async (regNo: string, password: string) =>{},
+    registerHandler: async (regNo: string, password: string, email: string) =>{}
 }
 
 export const UserContext = createContext<useUserContextType>(initialContextState)

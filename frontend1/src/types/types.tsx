@@ -1,7 +1,7 @@
 export type User ={
     name: string
     registrationNumber : string
-    validToken: string
+    tokened: string
     email: string
 }
 export type lectureNote = {
