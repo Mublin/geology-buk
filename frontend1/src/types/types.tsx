@@ -3,6 +3,7 @@ export type User ={
     registrationNumber : string
     tokened: string
     email: string
+    id: number
 }
 export type lectureNote = {
     name: string

@@ -2,10 +2,10 @@ import React, { ReactElement, useContext } from 'react'
 import { UserContext } from '../context/useUserHook'
 import { Navigate } from 'react-router-dom'
 
-const ProtectedRoute = ({children}: any) => {
+const AdminRoute = ({children}: any) => {
     const {state} = useContext(UserContext)
     const { userDetails } = state
-  return (userDetails ? children : <Navigate to={'/signin'}/>)
+  return (userDetails?.id ? children : <Navigate to={'/home'}/>)
 }
 
-export default ProtectedRoute
+export default AdminRoute;

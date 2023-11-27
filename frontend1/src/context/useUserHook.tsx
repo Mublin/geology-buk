@@ -43,7 +43,8 @@ const useUserContext = (initState: StateType)=>{
                 tokened: string,
                 regNo: string,
                 name: string,
-                email: string
+                email: string,
+                id: number
             }} = await axios.post(`http://localhost:9000/api/users/register`, {
                 regNo,
                 email,
@@ -56,14 +57,16 @@ const useUserContext = (initState: StateType)=>{
                         email: data.email,
                         registrationNumber: data.regNo,
                         name: data.name,
-                        tokened: data.tokened
+                        tokened: data.tokened,
+                        id: data.id
                     }
                 })
                 localStorage.setItem('userDetail', JSON.stringify({
                     email: data.email,
                     registrationNumber: data.regNo,
                     name: data.name,
-                    tokened: data.tokened
+                    tokened: data.tokened,
+                    id: data.id
                 }))
                 navigate('/home')
                 toast.success(`Welcome ${data.name}!, enjoy your day`)
@@ -81,7 +84,8 @@ const useUserContext = (initState: StateType)=>{
             tokened: string,
             regNo: string,
             name: string,
-            email: string
+            email: string,
+            id: number
         }} = await axios.post(`http://localhost:9000/api/users/signin`, {
             regNo,
             password
@@ -93,6 +97,7 @@ const useUserContext = (initState: StateType)=>{
                     email: data.email,
                     registrationNumber: data.regNo,
                     name: data.name,
+                    id: data.id,
                     tokened: data.tokened
                 }
             })
@@ -100,6 +105,7 @@ const useUserContext = (initState: StateType)=>{
                 email: data.email,
                 registrationNumber: data.regNo,
                 name: data.name,
+                id: data.id,
                 tokened: data.tokened
             }))
             navigate('/home')

@@ -26,10 +26,12 @@ userRoute.post('/signin', async (req, res)=>{
                     name: user[0].name,
                     email: user[0].email,
                     regNo,
+                    id: user[0].id,
                     tokened: generateToken({
                         name: user[0].name,
                         email: user[0].email,
-                        regNo
+                        regNo,
+                        id: user[0].id
                     })
                 })
            }else{
@@ -51,9 +53,9 @@ userRoute.post('/register', async (req, res)=>{
         const hashedPassword = await bcrypt.hash(password, 13); // Adjust the salt rounds as needed
         let authU;
         await db.transaction(async (trx)=>{
-            const auth = await db('users').select('name').where('reg_number', '=', regNo)
+            const auth = await db('users').select('*').where('reg_number', '=', regNo)
             if (auth[0]) {
-                authU = auth[0].name
+                authU = auth[0]
                 await trx('users').update({
                     email
                 }).where('reg_number', '=', regNo)
@@ -68,7 +70,8 @@ userRoute.post('/register', async (req, res)=>{
         return res.status(201).send({
             email,
             regNo,
-            name: authU,
+            name: authU.name,
+            id: authU.id,
             tokened: generateToken({email, regNo, authU})
         })
     } catch (error) {
@@ -77,5 +80,21 @@ userRoute.post('/register', async (req, res)=>{
         res.status(401).send({message: "User not found"})
     }
 })
-
+userRoute.get('/:reg', isAuth, async (req, res)=>{
+    const {reg} = req.params
+    try {
+        const user = await db('users').select('*').where('id', '=', reg)
+        if (user.length){
+            return res.status(201).send({
+                regNo: user[0].reg_number,
+                email: user[0].email,
+                name: user[0].name
+            })
+        }else{
+            return res.status(401).send({message: "Invalid credentials"})
+        }
+    } catch (error) {
+        return res.status(401).send({message: "Invalid user"})
+    }
+})
 module.exports = userRoute

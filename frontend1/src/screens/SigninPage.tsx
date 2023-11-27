@@ -5,7 +5,7 @@ import { UserContext } from '../context/useUserHook'
 const SigninPage = () => {
   const navigate = useNavigate()
   const { state, signInHandler } = useContext(UserContext)
-  const {user } = state
+  const {userDetails } = state
   const [regNo, setRegNo] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const submitHandler = async (e: MouseEvent<HTMLFormElement>) => {
@@ -13,8 +13,8 @@ const SigninPage = () => {
     await signInHandler(regNo, password)
   }
   useEffect(()=>{
-    user && navigate('/home')
-  },[user])
+    userDetails && navigate('/home')
+  },[userDetails])
   return (
     <div className='content'>
       <div className="signin">

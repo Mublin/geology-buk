@@ -16,6 +16,8 @@ import { UserProvider, initialState } from './context/useUserHook'
 import { ToastContainer } from 'react-toastify'
 import  'react-toastify/dist/ReactToastify.css'
 import AddLecturePage from './screens/AddLecturePage'
+import ProtectedRoute from './components/ProtectedRoute'
+import AdminRoute from './components/AdminRoute'
 
 function App() {
   return (
@@ -31,14 +33,14 @@ function App() {
       <Routes>
         <Route path='/' element={<LandPage />}/>
         <Route path='/home' element={<Homepage />}/>
-        <Route path='/new-note' element={<AddLecturePage />}/>
+        <Route path='/new-note' element={<AdminRoute><AddLecturePage /> </AdminRoute>}/>
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/programs' element={<CoursesPage />} />
-        <Route path='/programs/:program' element={<CoursePage />} />
+        <Route path='/programs/:program' element={<ProtectedRoute><CoursePage /> </ProtectedRoute>} />
         <Route path='/signin' element={<SigninPage />} />
         <Route path='/about' element={<AboutPage />} />
         <Route path='/contact' element={<ContactPage />} />
-        <Route path='/profile' element={<ProfileScreen />} />
+        <Route path='/profile' element={<ProtectedRoute> <ProfileScreen /> </ProtectedRoute>} />
       </Routes>
         </div>
         <div className="footy">

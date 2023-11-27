@@ -1,7 +1,9 @@
 import React from 'react'
 
-export default function getError() {
+
+export const getError = ({error}: any) => {
   return (
-    <div>getError</div>
+    error.response && error.response.data ? error.response.data.message : error.message
   )
 }
+
