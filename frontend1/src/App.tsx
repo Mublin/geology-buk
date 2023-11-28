@@ -18,6 +18,7 @@ import  'react-toastify/dist/ReactToastify.css'
 import AddLecturePage from './screens/AddLecturePage'
 import ProtectedRoute from './components/ProtectedRoute'
 import AdminRoute from './components/AdminRoute'
+import PasswordScreen from './screens/PasswordScreen'
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
         <Route path='/about' element={<AboutPage />} />
         <Route path='/contact' element={<ContactPage />} />
         <Route path='/profile' element={<ProtectedRoute> <ProfileScreen /> </ProtectedRoute>} />
+        <Route path='/changepassword' element={<ProtectedRoute> <PasswordScreen /> </ProtectedRoute>} />
       </Routes>
         </div>
         <div className="footy">

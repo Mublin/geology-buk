@@ -97,4 +97,28 @@ userRoute.get('/:reg', isAuth, async (req, res)=>{
         return res.status(401).send({message: "Invalid user"})
     }
 })
+userRoute.post('/:reg', isAuth, async (req, res)=>{
+    const {regNo, password, newPassword} = req.body
+    try {
+        const user = await db('hash').select('*').where('reg_number', '=', regNo)
+        if (user.length){
+           const correct = await bcrypt.compare(password, user[0].sirri);
+           if (correct) {
+            const hashedPassword = await bcrypt.hash(newPassword, 13);
+            await db('hash').update({
+                sirri: hashedPassword
+            }).where('reg_number', '=', regNo)
+            return res.status(201).send({
+                message: "Password is changed successfully"
+            })
+           } else {
+            return res.status(401).send({message: 'Invalid password'})
+           }
+        }else{
+            return res.status(401).send({message: "Invalid credentials"})
+        }
+    } catch (error) {
+        return res.status(401).send({message: "Invalid user"})
+    }
+})
 module.exports = userRoute

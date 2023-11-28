@@ -13,7 +13,6 @@ const ProfileScreen = () => {
   const submitHandler = async () => {
     
   }
-  console.log(userDetails)
   useEffect(()=>{
     const fetchData = async () =>{
       const {data}: {data :{
