@@ -39,13 +39,7 @@ const useUserContext = (initState: StateType)=>{
     const registerHandler = async (regNo: string, password: string, email: string)=>{
         try {
             console.log({regNo, password})
-            const {data}:{data : {
-                tokened: string,
-                regNo: string,
-                name: string,
-                email: string,
-                id: number
-            }} = await axios.post(`http://localhost:9000/api/users/register`, {
+            const {data}:{data : User} = await axios.post(`http://localhost:9000/api/users/register`, {
                 regNo,
                 email,
                 password
@@ -55,18 +49,22 @@ const useUserContext = (initState: StateType)=>{
                     type: REDUCER_ACTION_TYPE.register,
                     payload: {
                         email: data.email,
-                        registrationNumber: data.regNo,
+                        regNo: data.regNo,
                         name: data.name,
                         tokened: data.tokened,
-                        id: data.id
+                        id: data.id,
+                        isAdmin: data.isAdmin,
+                        isStudent: data.isStudent
                     }
                 })
                 localStorage.setItem('userDetail', JSON.stringify({
                     email: data.email,
-                    registrationNumber: data.regNo,
+                    regNo: data.regNo,
                     name: data.name,
                     tokened: data.tokened,
-                    id: data.id
+                    id: data.id,
+                    isAdmin: data.isAdmin,
+                    isStudent: data.isStudent
                 }))
                 navigate('/home')
                 toast.success(`Welcome ${data.name}!, enjoy your day`)
@@ -79,14 +77,7 @@ const useUserContext = (initState: StateType)=>{
     }
     const signInHandler = async (regNo: string, password: string)=>{
     try {
-        console.log({regNo, password})
-        const {data} : {data : {
-            tokened: string,
-            regNo: string,
-            name: string,
-            email: string,
-            id: number
-        }} = await axios.post(`http://localhost:9000/api/users/signin`, {
+        const {data} : {data : User} = await axios.post(`http://localhost:9000/api/users/signin`, {
             regNo,
             password
         })
@@ -94,19 +85,23 @@ const useUserContext = (initState: StateType)=>{
             dispatch({
                 type: REDUCER_ACTION_TYPE.logIn,
                 payload: {
-                    email: data.email,
-                    registrationNumber: data.regNo,
-                    name: data.name,
-                    id: data.id,
-                    tokened: data.tokened
+                        email: data.email,
+                        regNo: data.regNo,
+                        name: data.name,
+                        tokened: data.tokened,
+                        id: data.id,
+                        isAdmin: data.isAdmin,
+                        isStudent: data.isStudent
                 }
             })
             localStorage.setItem('userDetail', JSON.stringify({
                 email: data.email,
-                registrationNumber: data.regNo,
+                regNo: data.regNo,
                 name: data.name,
+                tokened: data.tokened,
                 id: data.id,
-                tokened: data.tokened
+                isAdmin: data.isAdmin,
+                isStudent: data.isStudent
             }))
             navigate('/home')
             toast.success(`welcome back ${data.name}!`)

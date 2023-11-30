@@ -19,6 +19,7 @@ import AddLecturePage from './screens/AddLecturePage'
 import ProtectedRoute from './components/ProtectedRoute'
 import AdminRoute from './components/AdminRoute'
 import PasswordScreen from './screens/PasswordScreen'
+import LectureNotesPage from './screens/LectureNotesPage'
 
 function App() {
   return (
@@ -36,9 +37,10 @@ function App() {
         <Route path='/home' element={<Homepage />}/>
         <Route path='/new-note' element={<AdminRoute><AddLecturePage /> </AdminRoute>}/>
         <Route path='/register' element={<RegisterPage />} />
-        <Route path='/programs' element={<CoursesPage />} />
-        <Route path='/programs/:program' element={<ProtectedRoute><CoursePage /> </ProtectedRoute>} />
+        <Route path='/programs/undergraduate' element={<CoursesPage />} />
+        <Route path='/programs/undergraduate/:program' element={<ProtectedRoute><CoursePage /> </ProtectedRoute>} />
         <Route path='/signin' element={<SigninPage />} />
+        <Route path='/lecturenotes' element={<LectureNotesPage />} />
         <Route path='/about' element={<AboutPage />} />
         <Route path='/contact' element={<ContactPage />} />
         <Route path='/profile' element={<ProtectedRoute> <ProfileScreen /> </ProtectedRoute>} />

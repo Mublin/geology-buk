@@ -1,8 +1,11 @@
 import React from 'react'
 
+
 const LandPage = () => {
   return (
-    <div className='content'>LandPage</div>
+    <div className='content'>
+      {/* // <Loader/> */}
+      LandPage</div>
   )
 }
 

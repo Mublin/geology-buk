@@ -1,7 +1,9 @@
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
+import React, { ChangeEvent, MouseEvent, useContext, useEffect, useState } from 'react'
 import { UserContext } from '../context/useUserHook'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { getError } from '../components/getError'
 
 const ProfileScreen = () => {
   const navigate = useNavigate()
@@ -10,8 +12,25 @@ const ProfileScreen = () => {
   const [email, setEmail] = useState<string>('')
   const [regNo, setRegNo] = useState<string>('')
   const [name, setName] = useState<string>('')
-  const submitHandler = async () => {
-    
+  const submitHandler = async (e: MouseEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    try {
+      const {data}: {data: {message: string}} = await axios.put(`http://localhost:9000/api/users/${userDetails?.id}`, {
+        email
+      }, {
+        headers:{
+          authorization: `Bearer ${userDetails?.tokened}`
+        }
+      })
+      if (data) {
+        toast.success(data.message)
+        return
+      } else {
+        throw Error('unable to change email')
+      }
+    } catch (error) {
+      toast.error(getError(error))
+    }
   }
   useEffect(()=>{
     const fetchData = async () =>{

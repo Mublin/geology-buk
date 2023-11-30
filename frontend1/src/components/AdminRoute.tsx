@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom'
 const AdminRoute = ({children}: any) => {
     const {state} = useContext(UserContext)
     const { userDetails } = state
-  return (userDetails?.id ? children : <Navigate to={'/home'}/>)
+  return (userDetails?.isAdmin ? children : <Navigate to={'/home'}/>)
 }
 
 export default AdminRoute;

@@ -1,14 +1,16 @@
 export type User ={
     name: string
-    registrationNumber : string
+    regNo : string
     tokened: string
     email: string
     id: number
+    isStudent: boolean
+    isAdmin: boolean
 }
 export type lectureNote = {
-    name: string
-    title: string
-    description: string
+    "course_title": string
+    "course_code": string
     level: number
-    file?: any 
+    "file_path": string
+    id: number
 }

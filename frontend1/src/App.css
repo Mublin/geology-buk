@@ -4,7 +4,10 @@
   flex-direction: column;
 }
 .page-content{
-  min-height: 88dvh;
+  flex: 1;
+}
+.page-content > *{
+  height: 100% !important;
 }
 .navy{
   height: 48px;
@@ -60,7 +63,7 @@
   transition: 1s all;
 }
 .content{
-  min-height: 88dvh;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -105,7 +108,10 @@ footer{
   align-items: center;
   justify-content: center;
   color: #fff;
+  position: relative;
+  bottom: 0px;
 }
+
 footer .footer h3{
   margin: 0;
 }
@@ -197,4 +203,17 @@ form div{
   display: flex;
   justify-content: center;
   align-items: center;
+}
+button{
+  border-radius: 10px;
+  padding: 3px 8px;
+  background-color: var(--color-action);
+  border: none;
+  text-shadow: 0 0 2px gray;
+  cursor: pointer;
+}
+button:active{
+  padding: 8px 10px;
+  text-shadow: 0 0 4px grey;
+  background-color: var(--color-tertiary);
 }
