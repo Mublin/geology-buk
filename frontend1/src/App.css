@@ -203,6 +203,7 @@ footer{
   flex-wrap: wrap;
   flex-direction: row;
   box-shadow: 0 0 3px gray;
+  background: var(--pic-about)
 }
 #about h2, #about p{
   margin: 0;
