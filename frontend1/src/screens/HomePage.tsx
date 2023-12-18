@@ -61,7 +61,7 @@ const Homepage = () => {
             <h2>QUICK LINKS</h2>
           </div>
           <div className="links-quick feature-cards">
-          <div className='card home-card'>
+          <div className='card home-card h8'>
               <div className="card-image home-image-card">
                   <img src='https://github.com/Mublin/geology-buk/blob/main/frontend1/src/assets/IMG_3419.JPG?raw=true' alt="" />
               </div>
@@ -75,7 +75,7 @@ const Homepage = () => {
               </div>
               
               </div>
-              <div className='card home-card'>
+              <div className='card home-card h8'>
               <div className="card-image home-image-card">
                   <img src='https://github.com/Mublin/geology-buk/blob/main/frontend1/src/assets/IMG_3418.JPG?raw=true' alt="" />
               </div>
@@ -89,7 +89,7 @@ const Homepage = () => {
               </div>
               
               </div>
-              <div className='card home-card'>
+              <div className='card home-card h8'>
               <div className="card-image home-image-card">
                   <img src='https://github.com/Mublin/geology-buk/blob/main/frontend1/src/assets/IMG_3417.JPG?raw=true' alt="" />
               </div>
@@ -103,7 +103,7 @@ const Homepage = () => {
               </div>
               
               </div>
-              <div className='card home-card'>
+              <div className='card home-card h8'>
               <div className="card-image home-image-card">
                   <img src='https://github.com/Mublin/geology-buk/blob/main/frontend1/src/assets/IMG_3417.JPG?raw=true' alt="" />
               </div>
