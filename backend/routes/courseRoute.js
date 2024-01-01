@@ -38,7 +38,6 @@ courseRoute.post('/newnote', isAuth, adminAuth, upload.single('file'), async (re
 })
 
 courseRoute.get('/lecturenotes', async(req, res)=>{
-    console.log(process.env.name)
     const data = await db('lecture_note').select('*')
     res.status(200).send(data)
 })
