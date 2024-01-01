@@ -61,7 +61,7 @@ userRoute.post('/register', async (req, res)=>{
                     email
                 }).where('reg_number', '=', registrationNumber)
                 await trx('hash').insert({
-                    "reg_number": registrationNumber,
+                    "reg_number": authU.registrationNumber,
                     sirri: hashedPassword
                 })
             } else {
