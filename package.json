@@ -4,7 +4,7 @@
   "description": "Geology Department website",
   "main": "index.js",
   "scripts": {
-    "build": "cd backend && npm install && cd ../frontend && npm install && npm run build",
+    "build": "cd backend && npm install && cd ../frontend1 && npm install && npm run build",
     "start": "node backend/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
