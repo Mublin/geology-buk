@@ -298,19 +298,34 @@ form label{
 }
 form label input{
   margin: .15rem 0;
-  border: none;
+  border: 1px solid var(--color-action);
   box-shadow: 0px 0px 8px gray;
   background-color: var(--color-primary);
   color: white;
   width: 40dvw;
   height: 25px;
-  font-size: 10px;
+  font-size: 17px;
   font-style: italic;
+}
+form label input::placeholder{
+  color: lightsalmon;
 }
 form label input:focus-visible{
   outline-style: inset;
   outline-color: #4d8b31;
   outline-width: 2px;
+}
+#contact textarea{
+  min-width: 190px;
+  min-height: 55px;
+  color: #fff;
+  font-size: 15px;
+  font-style: italic;
+  background-color: var(--color-primary);
+  border: 1px solid var(--color-action);
+}
+#contact textarea::placeholder{
+  color: lightsalmon;
 }
 form button{
   cursor: pointer;
@@ -426,6 +441,10 @@ button:active{
 #contact form{
   width: fit-content;
   min-width: 280px;
+  background-color: #000 !important;
+}
+#contact form button{
+  color: #fff !important;
 }
 
 #contact .a2, #contact .a1{

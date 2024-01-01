@@ -36,9 +36,10 @@ const useUserContext = (initState: StateType)=>{
     const [state, dispatch]= useReducer(reducer, initState)
     const navigate = useNavigate()
 
-    const registerHandler = async (registrationNumber: string, password: string, email: string)=>{
+    const registerHandler = async (registrationNumber: string, password: string, email: string, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>)=>{
         try {
             // console.log({registrationNumber, password})
+            setIsLoading(true)
             const {data}:{data : User} = await axios.post(`/api/users/register`, {
                 registrationNumber,
                 email,
@@ -66,17 +67,21 @@ const useUserContext = (initState: StateType)=>{
                     isAdmin: data.isAdmin,
                     isStudent: data.isStudent
                 }))
+            setIsLoading(false)
                 navigate('/home')
                 toast.success(`Welcome ${data.name}!, enjoy your day`)
             }else{
+            setIsLoading(false)
                 throw Error("Invalid username or password")
             }
         } catch (error) {
+            setIsLoading(false)
             alert(error)
         }
     }
-    const signInHandler = async (registrationNumber: string, password: string)=>{
+    const signInHandler = async (registrationNumber: string, password: string, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>)=>{
     try {
+        setIsLoading(true)
         const {data} : {data : User} = await axios.post(`/api/users/signin`, {
             registrationNumber,
             password
@@ -103,12 +108,15 @@ const useUserContext = (initState: StateType)=>{
                 isAdmin: data.isAdmin,
                 isStudent: data.isStudent
             }))
+            setIsLoading(false)
             navigate('/home')
             toast.success(`welcome back ${data.name}!`)
         }else{
+            setIsLoading(false)
             throw Error("Invalid username or password")
         }
     } catch (error) {
+        setIsLoading(false)
         alert(error)
     }
     }
