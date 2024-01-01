@@ -14,25 +14,25 @@ const db = knex({
 
 const userRoute = express.Router()
 
-userRoute.post('/signin', async (req, res)=>{
-    const { regNo, password} = req.body
+userRoute.post('/registrationNumberignin', async (req, res)=>{
+    const { registrationNumber, password} = req.body
     try {
-        const user = await db('hash').select('*').where('reg_number', '=', regNo)
+        const user = await db('hash').select('*').where('reg_number', '=', registrationNumber)
         if (user[0]) {
            const correct = await bcrypt.compare(password, user[0].sirri);
            if (correct) {
-                const user = await db('users').select('*').where('reg_number', '=', regNo)
+                const user = await db('users').select('*').where('reg_number', '=', registrationNumber)
                 return res.status(201).send({
                     name: user[0].name,
                     email: user[0].email,
-                    regNo,
+                    registrationNumber,
                     id: user[0].id,
                     isStudent: user[0].student,
                     isAdmin: user[0].admin,
                     tokened: generateToken({
                         name: user[0].name,
                         email: user[0].email,
-                        regNo,
+                        registrationNumber,
                         id: user[0].id,
                         isStudent: user[0].student,
                         isAdmin: user[0].admin
@@ -53,18 +53,18 @@ userRoute.post('/signin', async (req, res)=>{
 
 userRoute.post('/register', async (req, res)=>{
     try {
-        const { regNo, password, email} = req.body
+        const { registrationNumber, password, email} = req.body
         const hashedPassword = await bcrypt.hash(password, 13); // Adjust the salt rounds as needed
         let authU;
         await db.transaction(async (trx)=>{
-            const auth = await db('users').select('*').where('reg_number', '=', regNo)
+            const auth = await db('users').select('*').where('reg_number', '=', registrationNumber)
             if (auth[0]) {
                 authU = auth[0]
                 await trx('users').update({
                     email
-                }).where('reg_number', '=', regNo)
+                }).where('reg_number', '=', registrationNumber)
                 await trx('hash').insert({
-                    "reg_number": regNo,
+                    "reg_number": registrationNumber,
                     sirri: hashedPassword
                 })
             } else {
@@ -73,12 +73,12 @@ userRoute.post('/register', async (req, res)=>{
         })
         return res.status(201).send({
             email,
-            regNo,
+            registrationNumber,
             name: authU.name,
             id: authU.id,
             isStudent: authU.student,
             isAdmin: authU.admin,
-            tokened: generateToken({email, regNo, authU, id, isStudent, isAdmin})
+            tokened: generateToken({email, registrationNumber, authU, id, isStudent, isAdmin})
         })
     } catch (error) {
         res.status(401).send({message: "User not found"})
@@ -90,7 +90,7 @@ userRoute.get('/:reg', isAuth, async (req, res)=>{
         const user = await db('users').select('*').where('id', '=', reg)
         if (user.length){
             return res.status(201).send({
-                regNo: user[0].reg_number,
+                registrationNumber: user[0].reg_number,
                 email: user[0].email,
                 name: user[0].name,
                 isStudent: user[0].student,
@@ -104,16 +104,16 @@ userRoute.get('/:reg', isAuth, async (req, res)=>{
     }
 })
 userRoute.put('/changepassword/:reg', isAuth, async (req, res)=>{
-    const {regNo, password, newPassword} = req.body
+    const {registrationNumber, password, newPassword} = req.body
     try {
-        const user = await db('hash').select('*').where('reg_number', '=', regNo)
+        const user = await db('hash').select('*').where('reg_number', '=', registrationNumber)
         if (user.length){
            const correct = await bcrypt.compare(password, user[0].sirri);
            if (correct) {
             const hashedPassword = await bcrypt.hash(newPassword, 13);
             await db('hash').update({
                 sirri: hashedPassword
-            }).where('reg_number', '=', regNo)
+            }).where('reg_number', '=', registrationNumber)
             return res.status(201).send({
                 message: "Password is changed successfully"
             })
