@@ -19,7 +19,7 @@ const PasswordScreen = () => {
         message: string
       }} = await axios.post(`/api/users/changepassword/${userDetails?.id}`,{
         password: oldPassword,
-         registrationNumber: userDetails?. registrationNumber,
+        registrationNumber: userDetails?.registrationNumber,
         newPassword: password
       }, {
         headers : {

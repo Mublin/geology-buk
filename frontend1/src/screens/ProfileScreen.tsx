@@ -10,7 +10,7 @@ const ProfileScreen = () => {
   const {state} = useContext(UserContext)
   const { userDetails} = state
   const [email, setEmail] = useState<string>('')
-  const [ registrationNumber, setregistrationNumber] = useState<string>('')
+  const [registrationNumber, setregistrationNumber] = useState<string>('')
   const [name, setName] = useState<string>('')
   const submitHandler = async (e: MouseEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -35,7 +35,7 @@ const ProfileScreen = () => {
   useEffect(()=>{
     const fetchData = async () =>{
       const {data}: {data :{
-         registrationNumber: string,
+        registrationNumber: string,
         name: string,
         email: string
       }} = await axios.get(`/api/users/${userDetails?.id}`, {
@@ -46,7 +46,7 @@ const ProfileScreen = () => {
       if (data) {
         setEmail(data.email)
         setName(data.name)
-        setregistrationNumber(data. registrationNumber)
+        setregistrationNumber(data.registrationNumber)
       }
     }
     fetchData()
@@ -56,7 +56,7 @@ const ProfileScreen = () => {
       <div className="register">
         <form onSubmit={submitHandler}>
           <label htmlFor="">
-            Registration Number: <input type="text" name='reg-no' value={ registrationNumber} onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setregistrationNumber(e.target.value)}} disabled />
+            Registration Number: <input type="text" name='reg-no' value={registrationNumber} onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setregistrationNumber(e.target.value)}} disabled />
           </label>
           <label htmlFor="">
             Name: <input type="text" name='reg-no' value={name} onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setName(e.target.value)}} disabled />

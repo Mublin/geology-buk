@@ -6,11 +6,11 @@ const SigninPage = () => {
   const navigate = useNavigate()
   const { state, signInHandler } = useContext(UserContext)
   const {userDetails } = state
-  const [ registrationNumber, setregistrationNumber] = useState<string>('')
+  const [registrationNumber, setregistrationNumber] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const submitHandler = async (e: MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await signInHandler( registrationNumber, password)
+    await signInHandler(registrationNumber, password)
   }
   useEffect(()=>{
     userDetails && navigate('/home')
@@ -20,7 +20,7 @@ const SigninPage = () => {
       <div className="signin">
         <form onSubmit={submitHandler}>
           <label htmlFor="" style={{marginTop: '.6rem'}}>
-            Registration Number:<input type="text" name='Reg-no' required value={ registrationNumber} onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setregistrationNumber(e.target.value)}}  />
+            Registration Number:<input type="text" name='Reg-no' required value={registrationNumber} onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setregistrationNumber(e.target.value)}}  />
           </label>
           <label htmlFor="">
             Password: <input type="password" name='password' required  value={password} onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setPassword(e.target.value)}}  />

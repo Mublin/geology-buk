@@ -36,11 +36,11 @@ const useUserContext = (initState: StateType)=>{
     const [state, dispatch]= useReducer(reducer, initState)
     const navigate = useNavigate()
 
-    const registerHandler = async ( registrationNumber: string, password: string, email: string)=>{
+    const registerHandler = async (registrationNumber: string, password: string, email: string)=>{
         try {
-            console.log({ registrationNumber, password})
+            console.log({registrationNumber, password})
             const {data}:{data : User} = await axios.post(`/api/users/register`, {
-                 registrationNumber,
+                registrationNumber,
                 email,
                 password
             })
@@ -49,7 +49,7 @@ const useUserContext = (initState: StateType)=>{
                     type: REDUCER_ACTION_TYPE.register,
                     payload: {
                         email: data.email,
-                         registrationNumber: data. registrationNumber,
+                        registrationNumber: data.registrationNumber,
                         name: data.name,
                         tokened: data.tokened,
                         id: data.id,
@@ -59,7 +59,7 @@ const useUserContext = (initState: StateType)=>{
                 })
                 localStorage.setItem('userDetail', JSON.stringify({
                     email: data.email,
-                     registrationNumber: data. registrationNumber,
+                    registrationNumber: data.registrationNumber,
                     name: data.name,
                     tokened: data.tokened,
                     id: data.id,
@@ -75,10 +75,10 @@ const useUserContext = (initState: StateType)=>{
             alert(error)
         }
     }
-    const signInHandler = async ( registrationNumber: string, password: string)=>{
+    const signInHandler = async (registrationNumber: string, password: string)=>{
     try {
         const {data} : {data : User} = await axios.post(`/api/users/signin`, {
-             registrationNumber,
+            registrationNumber,
             password
         })
         if (data) {
@@ -86,7 +86,7 @@ const useUserContext = (initState: StateType)=>{
                 type: REDUCER_ACTION_TYPE.logIn,
                 payload: {
                         email: data.email,
-                        registrationNumber: data.registrationNumber,
+                       registrationNumber: data.registrationNumber,
                         name: data.name,
                         tokened: data.tokened,
                         id: data.id,
@@ -96,7 +96,7 @@ const useUserContext = (initState: StateType)=>{
             })
             localStorage.setItem('userDetail', JSON.stringify({
                 email: data.email,
-                registrationNumber: data.registrationNumber,
+               registrationNumber: data.registrationNumber,
                 name: data.name,
                 tokened: data.tokened,
                 id: data.id,
@@ -127,8 +127,8 @@ type useUserContextType = ReturnType<typeof useUserContext>
 const initialContextState : useUserContextType = {
     state: initialState,
     logOutHandler: ()=>{},
-    signInHandler:  async ( registrationNumber: string, password: string) =>{},
-    registerHandler: async ( registrationNumber: string, password: string, email: string) =>{}
+    signInHandler:  async (registrationNumber: string, password: string) =>{},
+    registerHandler: async (registrationNumber: string, password: string, email: string) =>{}
 }
 
 export const UserContext = createContext<useUserContextType>(initialContextState)
