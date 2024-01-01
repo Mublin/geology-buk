@@ -38,7 +38,7 @@ const useUserContext = (initState: StateType)=>{
 
     const registerHandler = async (registrationNumber: string, password: string, email: string)=>{
         try {
-            console.log({registrationNumber, password})
+            // console.log({registrationNumber, password})
             const {data}:{data : User} = await axios.post(`/api/users/register`, {
                 registrationNumber,
                 email,

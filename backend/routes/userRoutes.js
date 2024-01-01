@@ -45,42 +45,49 @@ userRoute.post('/signin', async (req, res)=>{
     
 })
 
-userRoute.post('/register', async (req, res)=>{
+userRoute.post('/register', async (req, res) => {
     try {
-        const { registrationNumber, password, email} = req.body
+        const { registrationNumber, password, email } = req.body;
         const hashedPassword = await bcrypt.hash(password, 13); // Adjust the salt rounds as needed
         let authU;
-        await db.transaction(async (trx)=>{
-            const auth = await db('users').select('*').where('reg_number', '=', registrationNumber)
+
+        await db.transaction(async (trx) => {
+            const auth = await trx('users').select('*').where('reg_number', '=', registrationNumber);
+
             if (auth[0]) {
-                authU = auth[0]
+                authU = auth[0];
+
                 if (authU.email) {
-                   throw Error('user exist') 
+                    throw new Error('User with the given registration number already has an email address');
                 }
+
                 await trx('users').update({
                     email
-                }).where('reg_number', '=', registrationNumber)
+                }).where('reg_number', '=', registrationNumber);
+
                 await trx('hash').insert({
-                    "reg_number": authU.registrationNumber,
+                    "reg_number": registrationNumber,
                     sirri: hashedPassword
-                })
+                });
             } else {
-                throw Error({message: "Invalid user"})
+                throw new Error("Invalid user with the given registration number");
             }
-        })
+        });
+
         return res.status(201).send({
             email,
             registrationNumber,
-            name: authU.name,
-            id: authU.id,
-            isStudent: authU.student,
-            isAdmin: authU.admin,
-            tokened: generateToken({email, registrationNumber, authU, id, isStudent, isAdmin})
-        })
+            name: authU.name, // Replace with the actual field name for user's name
+            id: authU.id, // Replace with the actual field name for user's ID
+            isStudent: authU.student, // Replace with the actual field name for student status
+            isAdmin: authU.admin, // Replace with the actual field name for admin status
+            tokened: generateToken({ email, registrationNumber, id: authU.id, isStudent: authU.student, isAdmin: authU.admin })
+        });
     } catch (error) {
-        res.status(401).send({message: "User not found or already exist"})
+        console.error("Error during user registration:", error); // Log the actual error for debugging
+        res.status(401).send({ error: "User registration failed", message: error.message || "Unexpected error" });
     }
-})
+});
 userRoute.get('/:reg', isAuth, async (req, res)=>{
     const {reg} = req.params
     try {
