@@ -15,7 +15,7 @@ const ProfileScreen = () => {
   const submitHandler = async (e: MouseEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
-      const {data}: {data: {message: string}} = await axios.put(`http://localhost:9000/api/users/${userDetails?.id}`, {
+      const {data}: {data: {message: string}} = await axios.put(`/api/users/${userDetails?.id}`, {
         email
       }, {
         headers:{
@@ -38,7 +38,7 @@ const ProfileScreen = () => {
         regNo: string,
         name: string,
         email: string
-      }} = await axios.get(`http://localhost:9000/api/users/${userDetails?.id}`, {
+      }} = await axios.get(`/api/users/${userDetails?.id}`, {
         headers : {
           authorization : `Bearer ${userDetails?.tokened}`
         }

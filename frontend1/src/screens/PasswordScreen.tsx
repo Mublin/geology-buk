@@ -17,7 +17,7 @@ const PasswordScreen = () => {
     try {
       const {data}: {data :{
         message: string
-      }} = await axios.post(`http://localhost:9000/api/users/changepassword/${userDetails?.id}`,{
+      }} = await axios.post(`/api/users/changepassword/${userDetails?.id}`,{
         password: oldPassword,
         regNo: userDetails?.regNo,
         newPassword: password

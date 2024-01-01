@@ -39,7 +39,7 @@ const useUserContext = (initState: StateType)=>{
     const registerHandler = async (regNo: string, password: string, email: string)=>{
         try {
             console.log({regNo, password})
-            const {data}:{data : User} = await axios.post(`http://localhost:9000/api/users/register`, {
+            const {data}:{data : User} = await axios.post(`/api/users/register`, {
                 regNo,
                 email,
                 password
@@ -77,7 +77,7 @@ const useUserContext = (initState: StateType)=>{
     }
     const signInHandler = async (regNo: string, password: string)=>{
     try {
-        const {data} : {data : User} = await axios.post(`http://localhost:9000/api/users/signin`, {
+        const {data} : {data : User} = await axios.post(`/api/users/signin`, {
             regNo,
             password
         })
