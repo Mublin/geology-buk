@@ -2,22 +2,16 @@ const express = require('express')
 const knex = require('knex')
 const bcrypt = require('bcryptjs')
 const { generateToken, isAuth } = require('../utils')
-const db = knex({
-    client: 'pg',
-    connection: {
-        host: process.env.url,
-        user: process.env.usernam,
-        password: process.env.password,
-        database: process.env.name
-    }
-})
+const db = knex(require('../knexfile'))
+
 
 const userRoute = express.Router()
 
-userRoute.post('/registrationNumberignin', async (req, res)=>{
+userRoute.post('/signin', async (req, res)=>{
     const { registrationNumber, password} = req.body
     try {
         const user = await db('hash').select('*').where('reg_number', '=', registrationNumber)
+        // console.log(user, registrationNumber)
         if (user[0]) {
            const correct = await bcrypt.compare(password, user[0].sirri);
            if (correct) {
@@ -60,6 +54,9 @@ userRoute.post('/register', async (req, res)=>{
             const auth = await db('users').select('*').where('reg_number', '=', registrationNumber)
             if (auth[0]) {
                 authU = auth[0]
+                if (authU.email) {
+                   throw Error('user exist') 
+                }
                 await trx('users').update({
                     email
                 }).where('reg_number', '=', registrationNumber)
@@ -81,7 +78,7 @@ userRoute.post('/register', async (req, res)=>{
             tokened: generateToken({email, registrationNumber, authU, id, isStudent, isAdmin})
         })
     } catch (error) {
-        res.status(401).send({message: "User not found"})
+        res.status(401).send({message: "User not found or already exist"})
     }
 })
 userRoute.get('/:reg', isAuth, async (req, res)=>{
