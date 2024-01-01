@@ -1,6 +1,6 @@
 export type User ={
     name: string
-    regNo : string
+    registrationNumber: string
     tokened: string
     email: string
     id: number

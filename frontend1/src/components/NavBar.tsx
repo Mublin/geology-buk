@@ -38,7 +38,7 @@ const NavBar = () => {
         <div className="nav-link-container">
           <div className="nav-link">
             <div className="profile nav-item"> {userDetails ? userDetails.name : 'Profile'}</div>
-            {userDetails?.regNo && <div className="invisible">
+            {userDetails?.registrationNumber && <div className="invisible">
               <p><Link to={'/profile'} className='nav-item'>Profile</Link></p>
               <p className='nav-item' onClick={()=>{logOutHandler()}}>Log-out</p>
             </div>}

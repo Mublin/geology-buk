@@ -6,14 +6,14 @@ const RegisterPage = () => {
   const navigate = useNavigate()
   const {state, registerHandler} = useContext(UserContext)
   const {userDetails} = state
-  const [regNo, setRegNo] = useState<string>('')
+  const [ registrationNumber, setregistrationNumber] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [cPassword, setCPassword] = useState<string>('')
   // const [igneous, setIgneous] = useState<any>(null)
   const submitHandler = async (e: MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
-    registerHandler(regNo, password, email)
+    registerHandler( registrationNumber, password, email)
   }
   useEffect(()=>{
     userDetails && navigate('/home')
@@ -23,7 +23,7 @@ const RegisterPage = () => {
       <div className="register">
         <form onSubmit={submitHandler}>
           <label htmlFor="" style={{marginTop: '.6rem'}}>
-            Registration Number: <input type="text" name='reg-no' required value={regNo} onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setRegNo(e.target.value)}}  />
+            Registration Number: <input type="text" name='reg-no' required value={ registrationNumber} onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setregistrationNumber(e.target.value)}}  />
           </label>
           <label htmlFor="">
             Email: <input type="email" name='email' value={email} required onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setEmail(e.target.value)}}  />

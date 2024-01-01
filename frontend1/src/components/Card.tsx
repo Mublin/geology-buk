@@ -1,11 +1,11 @@
 import React from 'react'
-import pic from '../assets/react.svg'
+
 
 export default function Card({level}: {level: string}) {
   return (
     <div className='card'>
         <div className="card-image">
-            <img src={pic} alt="" />
+            <img src={'h'} alt="" />
         </div>
         <div className="card-detail">
             <div className="card-title">
