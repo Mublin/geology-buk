@@ -80,7 +80,7 @@ const NavBar = () => {
               </div>
               <div className="nav-link-container drop">
                 <div className="nav-link">
-                  <div className='nav-item' onClick={toggleHandler}>Programs</div>
+                  <div className='profile nav-item' onClick={toggleHandler}><p>Programs</p> <p>...</p></div>
                   <div className="invisible" id='program-toggle'>
                     <p><Link className='nav-item' to={'/programs/undergraduate'}>Undergraduate</Link></p>
                     <p><Link className='nav-item' to={'/home'}>Postgraduate</Link></p>
@@ -93,10 +93,10 @@ const NavBar = () => {
               <div className="nav-link-container drop">
                 <div className="nav-link" onClick={profileToggler}>
                   <div className="profile nav-item"> <p>{userDetails ? userDetails.name : 'Profile'}</p><p>...</p></div>
-                  <div className="invisible" id='profile-toggle'>
+                  {userDetails ? <div className="invisible" id='profile-toggle'>
                     <p><Link to={'/profile'} className='nav-item'>Profile</Link></p>
                     <p className='nav-item' onClick={()=>{logOutHandler()}}>Log-out</p>
-                  </div>
+                  </div> : ''}
                 </div>
               </div>
               <div className="nav-link-container drop">
