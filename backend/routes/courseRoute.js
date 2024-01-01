@@ -4,15 +4,7 @@ const fs = require('fs').promises
 const multer = require('multer')
 const { isAuth, adminAuth } = require('../utils')
 const path = require('path')
-const db = knex({
-    client: 'pg',
-    connection: {
-        host: process.env.url,
-        user: process.env.usernam,
-        password: process.env.password,
-        database: process.env.name
-    }
-})
+const db = knex(require('../knexfile'))
 
 
 const courseRoute = express.Router()
@@ -45,7 +37,7 @@ courseRoute.post('/newnote', isAuth, adminAuth, upload.single('file'), async (re
     return res.status(401).send({message: 'Unable to add course'})
 })
 
-courseRoute.get('/lecturenotes', isAuth, adminAuth, async(req, res)=>{
+courseRoute.get('/lecturenotes', async(req, res)=>{
     const data = await db('lecture_note').select('*')
     res.status(200).send(data)
 })

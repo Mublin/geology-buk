@@ -1,0 +1,22 @@
+{
+  "name": "geology-buk",
+  "version": "1.0.0",
+  "description": "Geology Department website",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd backend && npm install && cd ../frontend && npm install && npm run build",
+    "start": "node backend/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mublin/geology-buk.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mublin/geology-buk/issues"
+  },
+  "homepage": "https://github.com/Mublin/geology-buk#readme"
+}

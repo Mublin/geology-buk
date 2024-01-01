@@ -203,14 +203,42 @@ footer{
   flex-wrap: wrap;
   flex-direction: row;
   box-shadow: 0 0 3px gray;
-  background: var(--pic-about)
+  border-radius: 15px;
+  background: var(--pic-about);
+  position: relative;
+  background-size: cover;
+  overflow: hidden;
+  min-height: 70dvh;
+}
+#about::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: -1;
+
+}
+#about::before, #about{
+  backdrop-filter: grayscale(27%) brightness(60%);
+
+}
+#about p{
+  font-size: 13.5px;
+}
+#about h2{
+  font-size: 16px;
 }
 #about h2, #about p{
+  backdrop-filter: none;
   margin: 0;
+  color: #fff
 }
 .about-pg1{
-  flex: 0 0 50%;
+  flex: 0 0 46%;
   width: 160px;
+  /* margin-right: .2rem; */
 }
 footer .footer h3{
   margin: 0;
@@ -222,10 +250,9 @@ footer .footer h3{
 
 }
 form{
-  background-color: darkslategray;
+  background-color: #6f5060;
   width: 60dvw;
-  min-height: 80dvh;
-  height: 100%;
+  min-height: 40dvh;
   box-shadow: 0 0 5px var(--color-secondary);
   display: flex;
   align-items: center;
@@ -233,27 +260,35 @@ form{
   flex-direction: column;
   color: #fff;
 }
+
+
 form label{
   display: flex;
   justify-content: center;
   flex-direction: column;
 }
 form label input{
-  margin: .5rem 0;
+  margin: .15rem 0;
   border: none;
-  box-shadow: 0px 0px 8px darkorange;
+  box-shadow: 0px 0px 8px gray;
   background-color: var(--color-primary);
   color: white;
   width: 40dvw;
-  height: 40px;
-  font-size: large;
+  height: 25px;
+  font-size: 10px;
+  font-style: italic;
+}
+form label input:focus-visible{
+  outline-style: inset;
+  outline-color: #4d8b31;
+  outline-width: 2px;
 }
 form button{
   cursor: pointer;
   width: 42dvw;
   padding: 4px 0;
   border-radius: 18px;
-  margin: .7rem 0;
+  margin: .3rem 0;
   height: 36px;
   background-color: var(--color-tertiary);
 }
@@ -265,6 +300,9 @@ form div{
   height: 2rem;
   margin: 2px 0;
   text-align: left;
+}
+form h4{
+  margin: .2rem 0;
 }
 .home-image{
   margin: 1rem 0;
@@ -344,4 +382,14 @@ button:active{
 .appear{
   display: none;
 
+}
+#contact{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 50dvh;
+  background-color: #000000;
+  width: 70dvw;
+  box-shadow: 0 0 10px var(--color-tertiary);
 }

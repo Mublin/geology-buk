@@ -22,25 +22,25 @@ const RegisterPage = () => {
     <div className='content'>
       <div className="register">
         <form onSubmit={submitHandler}>
-          <label htmlFor="">
-            Registration Number: <input type="text" name='reg-no' value={regNo} onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setRegNo(e.target.value)}}  />
+          <label htmlFor="" style={{marginTop: '.6rem'}}>
+            Registration Number: <input type="text" name='reg-no' required value={regNo} onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setRegNo(e.target.value)}}  />
           </label>
           <label htmlFor="">
-            Email: <input type="email" name='email' value={email} onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setEmail(e.target.value)}}  />
+            Email: <input type="email" name='email' value={email} required onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setEmail(e.target.value)}}  />
           </label>
           {/* <label htmlFor="">
             File: <input type="file" name='lecture-note' accept='.pdf' onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setIgneous(e.target.files?.[0])}}  />
           </label> */}
           <label htmlFor="">
-            Password: <input type="password" name='password' value={password} onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setPassword(e.target.value)}} />
+            Password: <input type="password" name='password' value={password} required onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setPassword(e.target.value)}} />
           </label>
           <label htmlFor="">
-            Confirm Password: <input type="password"  value={cPassword} onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setCPassword(e.target.value)}} />
+            Confirm Password: <input type="password"  value={cPassword} required onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setCPassword(e.target.value)}} />
           </label>
           <button type='submit'>Sign Up</button>
-          <div className="forgotten">
+          <label className="forgotten" style={{marginBottom: '.6rem'}}>
             <h4>Already a user? <Link to={'/signin'}>Sign-in here</Link></h4>
-          </div>
+          </label>
         </form>
       </div>
     </div>

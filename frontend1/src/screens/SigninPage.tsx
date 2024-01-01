@@ -19,19 +19,19 @@ const SigninPage = () => {
     <div className='content'>
       <div className="signin">
         <form onSubmit={submitHandler}>
-          <label htmlFor="">
-            Registration Number:<input type="text" name='Reg-no' value={regNo} onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setRegNo(e.target.value)}}  />
+          <label htmlFor="" style={{marginTop: '.6rem'}}>
+            Registration Number:<input type="text" name='Reg-no' required value={regNo} onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setRegNo(e.target.value)}}  />
           </label>
           <label htmlFor="">
-            Password: <input type="password" name='password'  value={password} onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setPassword(e.target.value)}}  />
+            Password: <input type="password" name='password' required  value={password} onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setPassword(e.target.value)}}  />
           </label>
           <button type='submit'>Sign-in</button>
           <div className="forgotten">
             <h4>Forgotten password? <Link to={'/forgottenpassword'}>click here</Link></h4>
           </div>
-          <div className="forgotten">
+          <label className="forgotten" style={{marginBottom: '.6rem'}}>
             <h4>New User? <Link to={'/register'}>Sign-up here</Link></h4>
-          </div>
+          </label>
         </form>
       </div>
     </div>
