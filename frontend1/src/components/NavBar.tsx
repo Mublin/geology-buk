@@ -30,8 +30,8 @@ const NavBar = () => {
               <p><Link className='nav-item' to={'/programs/undergraduate'}>Undergraduate</Link></p>
               <p><Link className='nav-item' to={'/home'}>Postgraduate</Link></p>
               <p><Link className='nav-item' to={'/home'}>Study materials</Link></p>
-              {userDetails?.isAdmin && <p><Link className='nav-item' to={'/new-note'}>Add lecture Note</Link></p>}
-              {userDetails?.isAdmin && <p><Link className='nav-item' to={'/lecturenotes'}>Lecture Notes</Link></p>}
+              { <p><Link className='nav-item' to={'/new-note'}>Add lecture Note</Link></p>}
+              { <p><Link className='nav-item' to={'/lecturenotes'}>Lecture Notes</Link></p>}
             </div>
           </div>
         </div>

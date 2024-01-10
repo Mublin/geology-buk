@@ -21,7 +21,7 @@ const AddLecturePage = () => {
                 formData.append('level', level.toString());
                 const {data} :{data: {
                     message: string
-                }} = await axios.post(`/api/course/newnote`, formData, {
+                }} = await axios.post(`http://localhost:9000/api/course/newnote`, formData, {
                   headers: {
                     authorization: `Bearer ${userDetails?.tokened}`
                   }
