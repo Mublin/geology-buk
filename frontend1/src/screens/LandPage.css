@@ -9,6 +9,6 @@
 }
 h1 {color: bisque;
 text-align: center;}
-p,h3 {color: rgb(112, 67, 0);
+p,h3.landtext {color: rgb(112, 67, 0);
 text-decoration-color: rgb(59, 37, 4);
 text-align: center;}

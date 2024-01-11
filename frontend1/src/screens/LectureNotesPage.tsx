@@ -34,18 +34,19 @@ const LectureNotesPage = () => {
         fetchNotes()
     },[])
     const deleteHandler= async(unique: number)=>{
+        setIsLoading(true)
         try {
             const {data}: {data: {message: string}} = await axios.delete(`http://localhost:9000/api/course/lecturenote/${unique}`, {
                 headers: {
                     authorization: `Bearer ${userDetails?.tokened}`
                 }
             })
-            if (data) {
                 setLectureNotes(lectureNotes.filter(x=> x.id !== unique))
                 toast.success(data.message)
-            }
         } catch (error) {
             toast.error(getError(error))
+        } finally {
+            setIsLoading(false)
         }
     }
   return ( isLoading ? <Loader /> : <div className='content'>

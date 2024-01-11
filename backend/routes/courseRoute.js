@@ -74,6 +74,7 @@ courseRoute.get('/download/:filename', async (req, res) => {
 courseRoute.delete('/lecturenote/:id', async (req, res) => {
     const { id } = req.params;
     console.log(id)
+    
     try {
         // Retrieve the lecture note data
         const lectureNote = await db('lecture_note').select('*').where('id', '=', id);
@@ -83,7 +84,7 @@ courseRoute.delete('/lecturenote/:id', async (req, res) => {
         }
 
         // Delete the file from Dropbox
-        console.log(lectureNote[0].file_path.slice(1))
+        // console.log(lectureNote[0].file_path.slice(1))
         await dropbox.filesDeleteV2({ path: lectureNote[0].file_path });
 
 

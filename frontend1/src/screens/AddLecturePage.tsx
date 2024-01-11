@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { ChangeEvent, MouseEvent, useContext, useState } from 'react'
 import { toast } from 'react-toastify'
 import { UserContext } from '../context/useUserHook'
+import Loader from '../components/Loader'
 
 const AddLecturePage = () => {
     const {state} = useContext(UserContext)
@@ -9,11 +10,13 @@ const AddLecturePage = () => {
     const [courseTitle, setCourseTitle] = useState<string>('')
     const [courseCode, setCourseCode] = useState<string>('')
     const [lectureNote, setLectureNote] = useState<any>(null)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
     const [level, setLevel] = useState<number>(0)
     const submitHandler = async (e: MouseEvent<HTMLFormElement>) =>{
         e.preventDefault()
         if (lectureNote) {
             try {
+                setIsLoading(true)
                 const formData = new FormData()
                 formData.append('file', lectureNote);
                 formData.append('courseTitle', courseTitle);
@@ -35,10 +38,12 @@ const AddLecturePage = () => {
                 }
             } catch (error: any) {
                 toast.error(error.message)
+            } finally {
+              setIsLoading(false)
             }
         }
     }
-  return (
+  return ( isLoading ? <Loader /> :(
     <div className='content'>
       <div className="register">
         <form onSubmit={submitHandler}>
@@ -59,6 +64,7 @@ const AddLecturePage = () => {
         </form>
       </div>
     </div>
+  )
   )
 }
 
