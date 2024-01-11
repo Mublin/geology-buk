@@ -16,7 +16,7 @@ const AddAdminPage = () => {
     e.preventDefault();
    try {
     setIsLoading(true)
-    const {data} = await axios.put(`http://localhost:9000/api/users/adupdate`,
+    const {data} = await axios.put(`/api/users/adupdate`,
     {
         registrationNumber,
         adminApp
