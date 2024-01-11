@@ -16,7 +16,7 @@ const LectureNotesPage = () => {
         const fetchNotes = async ()=>{
             try {
                 setIsLoading(true)
-            const {data}: {data : lectureNote[]} = await axios.get(`http://localhost:9000/api/course/lecturenotes`, {
+            const {data}: {data : lectureNote[]} = await axios.get(`/api/course/lecturenotes`, {
                 headers: {
                     authorization: `Bearer ${userDetails?.tokened}`
                 }
@@ -36,7 +36,7 @@ const LectureNotesPage = () => {
     const deleteHandler= async(unique: number)=>{
         setIsLoading(true)
         try {
-            const {data}: {data: {message: string}} = await axios.delete(`http://localhost:9000/api/course/lecturenote/${unique}`, {
+            const {data}: {data: {message: string}} = await axios.delete(`/api/course/lecturenote/${unique}`, {
                 headers: {
                     authorization: `Bearer ${userDetails?.tokened}`
                 }
@@ -68,7 +68,7 @@ const LectureNotesPage = () => {
   <div className="col col-4" data-label="Level">{notes.level}</div>
   <div className="col col-4" data-label="Lecture File">
     <a
-      href={`http://localhost:9000/api/course/download/${encodeURIComponent(notes.file_path)}`}
+      href={`/api/course/download/${encodeURIComponent(notes.file_path)}`}
       target='_blank'
       download={notes.course_title}
     >

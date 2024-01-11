@@ -3,7 +3,7 @@
     background-color: rgb(117, 152, 216);
     flex: 1;
     background-image: url(../assets/IMG-20240110-WA0029.jpg);
-    background-size: contain;
+    background-size: cover;
     min-height: 85.3dvh;
 
 }

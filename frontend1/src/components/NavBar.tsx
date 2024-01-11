@@ -30,6 +30,7 @@ const NavBar = () => {
               <p><Link className='nav-item' to={'/programs/undergraduate'}>Undergraduate</Link></p>
               <p><Link className='nav-item' to={'/home'}>Postgraduate</Link></p>
               <p><Link className='nav-item' to={'/home'}>Study materials</Link></p>
+              <p><Link className='nav-item' to={'/updateadmin'}>Admin page</Link></p>
               { <p><Link className='nav-item' to={'/new-note'}>Add lecture Note</Link></p>}
               { <p><Link className='nav-item' to={'/lecturenotes'}>Lecture Notes</Link></p>}
             </div>
