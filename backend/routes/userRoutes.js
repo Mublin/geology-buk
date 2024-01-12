@@ -116,20 +116,22 @@ userRoute.put('/adupdate', async (req, res)=>{
                 await db('users').update({
                     admin: false
                 }).where('reg_number', '=', registrationNumber)
-                res.status(200).send({message: "changed successfully"})
-            }
-            if (!user[0].admin && adminApp === 'Yes'){
+                return res.status(200).send({message: "changed successfully"})
+            } else if (!user[0].admin && adminApp === 'Yes'){
                 await db('users').update({
                     admin: true
                 }).where('reg_number', '=', registrationNumber)
-                res.status(200).send({message: "changed successfully"})
+                return res.status(200).send({message: "changed successfully"})
+            } else {
+                throw Error("unable to update admin")
             }
+            
         } else{
             throw Error('unable to find user')
         }
     } catch (error) {
         console.error(error)
-        res.status(401).send({message : "user not found"})
+        return res.status(401).send({message : "user not found"})
     }
 })
 userRoute.put('/changepassword/:reg', isAuth, async (req, res)=>{
