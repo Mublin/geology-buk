@@ -20,7 +20,7 @@ const CoursesPage = () => {
                 <h3>Level 1</h3>
             </div>
             <div className="card-description">
-                <p>Lorem ipsum dolor sit amet.</p>
+                <p>SLATE.</p>
             </div>
         </div>
         </Link>
@@ -35,7 +35,7 @@ const CoursesPage = () => {
                 <h3>Level 2</h3>
             </div>
             <div className="card-description">
-                <p>Lorem ipsum dolor sit amet.</p>
+                <p>PHYLLITE.</p>
             </div>
         </div>
         </Link>
@@ -50,7 +50,7 @@ const CoursesPage = () => {
                 <h3>Level 3</h3>
             </div>
             <div className="card-description">
-                <p>Lorem ipsum dolor sit amet.</p>
+                <p>SCHIST.</p>
             </div>
         </div>
         </Link>
@@ -67,7 +67,7 @@ const CoursesPage = () => {
                 <h3>Level 4</h3>
             </div>
             <div className="card-description">
-                <p>Lorem ipsum dolor sit amet.</p>
+                <p>GNEISS.</p>
             </div>
         </div>
       </Link>

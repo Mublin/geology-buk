@@ -21,6 +21,7 @@ import AdminRoute from './components/AdminRoute'
 import PasswordScreen from './screens/PasswordScreen'
 import LectureNotesPage from './screens/LectureNotesPage'
 import AddAdminPage from './screens/AddAdminPage'
+import Level1Page from './screens/Level1Page'
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <div className="page-content">
       <Routes>
         <Route path='/' element={<LandPage />}/>
+        <Route path='/programs/undergraduate/1' element={<Level1Page />} />
         <Route path='/updateadmin' element={<AddAdminPage />} />
         <Route path='/home' element={<Homepage />}/>
         <Route path='/new-note' element={<AddLecturePage />} />
