@@ -4,11 +4,37 @@
     flex: 1;
     background-image: url(../assets/IMG-20240110-WA0029.jpg);
     background-size: cover;
-    min-height: 85.3dvh;
-
+    min-height: 86.3dvh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
 }
-h1 {color: bisque;
+.land div {
+    flex: 0 0 50%;
+}
+.head h1{
+    margin: 0;
+}
+.head-text p, .head-text h4{
+    margin: 0;
+}
+.geology{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+}
+.geology-action{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+h1.landhead {color: bisque;
 text-align: center;}
-p,h3.landtext {color: rgb(112, 67, 0);
-text-decoration-color: rgb(59, 37, 4);
-text-align: center;}
+.land p,h3.landtext {
+    color: rgb(112, 67, 0);
+    text-decoration-color: rgb(59, 37, 4);
+    }

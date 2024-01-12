@@ -30,8 +30,8 @@ const NavBar = () => {
               <p><Link className='nav-item' to={'/programs/undergraduate'}>Undergraduate</Link></p>
               <p><Link className='nav-item' to={'/home'}>Postgraduate</Link></p>
               <p><Link className='nav-item' to={'/home'}>Study materials</Link></p>
-              <p><Link className='nav-item' to={'/updateadmin'}>Admin page</Link></p>
-              { <p><Link className='nav-item' to={'/new-note'}>Add lecture Note</Link></p>}
+              { userDetails?.isAdmin && <p><Link className='nav-item' to={'/updateadmin'}>Admin page</Link></p>}
+              { userDetails?.isAdmin && <p><Link className='nav-item' to={'/new-note'}>Add lecture Note</Link></p>}
               { <p><Link className='nav-item' to={'/lecturenotes'}>Lecture Notes</Link></p>}
             </div>
           </div>
@@ -86,8 +86,9 @@ const NavBar = () => {
                     <p><Link className='nav-item' to={'/programs/undergraduate'}>Undergraduate</Link></p>
                     <p><Link className='nav-item' to={'/home'}>Postgraduate</Link></p>
                     <p><Link className='nav-item' to={'/home'}>Study materials</Link></p>
+                    { userDetails?.isAdmin && <p><Link className='nav-item' to={'/updateadmin'}>Admin page</Link></p>}
                     {userDetails?.isAdmin && <p><Link className='nav-item' to={'/new-note'}>Add lecture Note</Link></p>}
-                    {userDetails?.isAdmin && <p><Link className='nav-item' to={'/lecturenotes'}>Lecture Notes</Link></p>}
+                    {<p><Link className='nav-item' to={'/lecturenotes'}>Lecture Notes</Link></p>}
                   </div>
                 </div>
               </div>
@@ -97,7 +98,11 @@ const NavBar = () => {
                   {userDetails ? <div className="invisible" id='profile-toggle'>
                     <p><Link to={'/profile'} className='nav-item'>Profile</Link></p>
                     <p className='nav-item' onClick={()=>{logOutHandler()}}>Log-out</p>
-                  </div> : ''}
+                  </div> :  <div className="nav-link-container">
+          <div className="nav-link">
+            <Link to={'/signin'} className='nav-item'>Sign-in/Register</Link>
+          </div>
+        </div>}
                 </div>
               </div>
               <div className="nav-link-container drop">
@@ -114,7 +119,7 @@ const NavBar = () => {
                 <div className="nav-link">
                 <p className='nav-item' onClick={()=>{logOutHandler()}}>Log-out</p>
                 </div>
-              </div> : <div className="nav-link-container">
+              </div> : <div className="nav-link-container drop">
                 <div className="nav-link">
                   <Link to={'/signin'} className='nav-item'>Sign-in/Register</Link>
                 </div>
