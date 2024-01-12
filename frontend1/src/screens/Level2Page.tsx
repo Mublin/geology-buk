@@ -1,8 +1,9 @@
 import React from 'react'
-import './Level1Page.css'
+import './Level2Page.css'
 const Level2Page = () => {
   return ( 
-<div>
+    <div className='content'>
+        <div className='level2'>
 <h2>Course Table</h2>
 <table>
     <tr>
@@ -17,50 +18,51 @@ const Level2Page = () => {
     </tr>
     <tr>
         <td>2</td>
-        <td>CHM1231 Inorganic Chemistry.</td>
-        <td>CHM Physical Chemistry.</td>
+        <td>GLG2201 SYSTEMATIC PALEONTOLOGY.</td>
+        <td>GLG2204 OPTICAL MINEROLOGY.</td>
     </tr>
     <tr>
         <td>3</td>
-        <td>EES1301 Algebra and Trigonometry. </td>
-        <td></td>
+        <td>GLG2203 CRYSTALLOGRAPHY AND MINEROLOGY. </td>
+        <td>GLG2206 STRATIGRAPHIC PALEONTOLOGY.</td>
     </tr>
     <tr>
         <td>4</td>
-        <td>PHY1210 Mechanics. </td>
-        <td></td>
+        <td>GLG2205 GEOLOGICAL SURVEYING.</td>
+        <td>GLG2212 FIELD GEOLOGY I.</td>
     </tr>
     <tr>
         <td>5</td>
-        <td>GLG1201 General Geology. </td>
-        <td></td>
+        <td>GSP2204 FOUNDATION OF NIGERIAN CULTURE, GOVERNMENT AND ECONOMY.</td>
+        <td>GLG2216 INTRODUCTION TO GEOLOGY OF NIG</td>
     </tr>
     <tr>
         <td>6</td>
-        <td>BIO1201 Zoology. </td>
-        <td></td>
+        <td>GSP2205 LOGIC AND PHILOSOPHY. </td>
+        <td>GLG2218 GENERAL PHYSICAL CHEMISTRY.</td>
     </tr>
     <tr>
         <td>7</td>
-        <td>BIO1202 Botany. </td>
-        <td></td>
+        <td>ZOO2201 INVERTEBRATES. </td>
+        <td>GSP2201 USE OF ENGLISH.</td>
     </tr>
     <tr>
         <td>8</td>
         <td></td>
-        <td></td>
+        <td>GSP2206 PEACE STUDIES AND CONFLICT RESOLUTION.</td>
     </tr>
     <tr>
         <td>9</td>
         <td></td>
-        <td></td>
+        <td>CHM2211 ANALYTICAL CHEMISTRY.</td>
     </tr>
     <tr>
         <td>10</td>
         <td></td>
-        <td></td>
+        <td>AGR2202 INTRO TO COMP AND APPL.</td>
     </tr>
 </table>
+</div>
 </div>
 
   )

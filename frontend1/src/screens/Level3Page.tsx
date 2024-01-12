@@ -1,5 +1,5 @@
 import React from 'react'
-import './Level1Page.css'
+import './Level3Page.css'
 const Level3Page = () => {
   return ( 
 <div>
@@ -17,55 +17,50 @@ const Level3Page = () => {
     </tr>
     <tr>
         <td>1</td>
-        <td>CHM1241 Organic Chemistry </td>
-        <td>EES1302 Vector and Geometry</td>
+        <td>EEP3201 ENTERPRENEURSHIP AND INNOVATION.</td>
+        <td>GLG3602 SIWES. </td>
     </tr>
     <tr>
         <td>2</td>
-        <td>CHM1231 Inorganic Chemistry.</td>
-        <td>CHM Physical Chemistry.</td>
+        <td>GLG3201 STRUCTURAL GEOLOGY.</td>
+        <td>.....</td>
     </tr>
     <tr>
         <td>3</td>
-        <td>EES1301 Algebra and Trigonometry. </td>
-        <td></td>
+        <td>GLG3205 SEDIMENTOLOGY. </td>
+        <td>.....</td>
     </tr>
     <tr>
         <td>4</td>
-        <td>PHY1210 Mechanics. </td>
-        <td></td>
+        <td>GLG3207 GEOCHEMISTRY. </td>
+        <td>.....</td>
     </tr>
     <tr>
         <td>5</td>
-        <td>GLG1201 General Geology. </td>
-        <td></td>
+        <td>GLG3209 IGNEOUS PETROLOGY. </td>
+        <td>......</td>
     </tr>
     <tr>
         <td>6</td>
-        <td>BIO1201 Zoology. </td>
-        <td></td>
+        <td>GLG3211 METAMORPHIC PETROLOGY. </td>
+        <td>......</td>
     </tr>
     <tr>
         <td>7</td>
-        <td>BIO1202 Botany. </td>
-        <td></td>
+        <td>GLG3213 GEOLOGY OF AFRICA. </td>
+        <td>......</td>
     </tr>
     <tr>
         <td>8</td>
-        <td></td>
-        <td></td>
+        <td>GLG3215 GEOPHYSICS I.</td>
+        <td>......</td>
     </tr>
     <tr>
         <td>9</td>
-        <td></td>
-        <td></td>
+        <td>GLG3433 FIELD GEOLOGY II.</td>
+        <td>......</td>
     </tr>
-    <tr>
-        <td>10</td>
-        <td></td>
-        <td></td>
-    </tr>
-</table>
+    </table>
 </div>
 
   )

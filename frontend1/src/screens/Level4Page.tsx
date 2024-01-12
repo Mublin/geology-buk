@@ -1,5 +1,5 @@
 import React from 'react'
-import './Level1Page.css'
+import './Level4Page.css'
 const Level4Page = () => {
   return ( 
 <div>
@@ -17,53 +17,48 @@ const Level4Page = () => {
     </tr>
     <tr>
         <td>1</td>
-        <td>CHM1241 Organic Chemistry </td>
-        <td>EES1302 Vector and Geometry</td>
+        <td>GLG4301 ADVANCED IGNEOUS PETROLOGY. </td>
+        <td>GLG4202 GEOPHYSICS II.</td>
     </tr>
     <tr>
         <td>2</td>
-        <td>CHM1231 Inorganic Chemistry.</td>
-        <td>CHM Physical Chemistry.</td>
+        <td>GLG4111 SEMINAR.</td>
+        <td>GLG4206 GEOTECHTONICS.</td>
     </tr>
     <tr>
         <td>3</td>
-        <td>EES1301 Algebra and Trigonometry. </td>
-        <td></td>
+        <td>GLG4207 PHTOGEOLOGY AND REMOTE SENSING. </td>
+        <td>GLG4212 APPLIED GEOCHEMISTRY.</td>
     </tr>
     <tr>
         <td>4</td>
-        <td>PHY1210 Mechanics. </td>
-        <td></td>
+        <td>GLG4209 ENGINEERING GEOLOGY. </td>
+        <td>GLG4214 MINERAL RESOURCES AND ENVIRONMENT GEOLOGY</td>
     </tr>
     <tr>
         <td>5</td>
-        <td>GLG1201 General Geology. </td>
-        <td></td>
+        <td>GLG4215 MICROPALEONTOLOGY. </td>
+        <td>GLG4216 MARINE GEOLOGY.</td>
     </tr>
     <tr>
         <td>6</td>
-        <td>BIO1201 Zoology. </td>
-        <td></td>
+        <td>GLG4217 PETROLEUM GEOLOGY. </td>
+        <td>GLG4300 RESEARCH PROJECT.</td>
     </tr>
     <tr>
         <td>7</td>
-        <td>BIO1202 Botany. </td>
-        <td></td>
+        <td>GLG4301 ADVANCED IGNEOUS PETROLOGY. </td>
+        <td>GLG4304 ECONOMIC GEOLOGY.</td>
     </tr>
     <tr>
         <td>8</td>
-        <td></td>
-        <td></td>
+        <td>GLG4303 ADVANCED METAMORPHIC PETROLOGY.</td>
+        <td>......</td>
     </tr>
     <tr>
         <td>9</td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>10</td>
-        <td></td>
-        <td></td>
+        <td>GLG4305 HYDROLOGY.</td>
+        <td>......</td>
     </tr>
 </table>
 </div>

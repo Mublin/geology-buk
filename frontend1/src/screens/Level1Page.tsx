@@ -3,12 +3,7 @@ import './Level1Page.css'
 const Level1Page = () => {
   return ( 
 <div>
-
 <h2>Course Table</h2>
-
-
-
-
 <table>
     <tr>
         <th>Serial Number</th>
@@ -28,27 +23,27 @@ const Level1Page = () => {
     <tr>
         <td>3</td>
         <td>EES1301 Algebra and Trigonometry. </td>
-        <td></td>
+        <td>.....</td>
     </tr>
     <tr>
         <td>4</td>
         <td>PHY1210 Mechanics. </td>
-        <td></td>
+        <td>.....</td>
     </tr>
     <tr>
         <td>5</td>
         <td>GLG1201 General Geology. </td>
-        <td></td>
+        <td>.....</td>
     </tr>
     <tr>
         <td>6</td>
         <td>BIO1201 Zoology. </td>
-        <td></td>
+        <td>.....</td>
     </tr>
     <tr>
         <td>7</td>
         <td>BIO1202 Botany. </td>
-        <td></td>
+        <td>.....</td>
     </tr>
     <tr>
         <td>8</td>

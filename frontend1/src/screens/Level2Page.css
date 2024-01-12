@@ -1,0 +1,22 @@
+.level2{
+    background-image: url(../assets/1.jpeg);
+    font-family: Arial, Helvetica, sans-serif;
+    flex: 1;
+    background-size: cover;
+    min-height: 85.3dvh;
+    background-color:aliceblue ;
+
+}
+table {
+    border-collapse: collapse;
+    width: 50%;
+    margin: 20px;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #906f6f;
+}
