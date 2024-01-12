@@ -1,7 +1,7 @@
 const express = require('express')
 const knex = require('knex')
 const bcrypt = require('bcryptjs')
-const { generateToken, isAuth } = require('../utils')
+const { generateToken, isAuth, adminAuth } = require('../utils')
 const db = knex(require('../knexfile'))
 
 
@@ -107,7 +107,7 @@ userRoute.get('/:reg', isAuth, async (req, res)=>{
         return res.status(401).send({message: "Invalid user"})
     }
 })
-userRoute.put('/adupdate', async (req, res)=>{
+userRoute.put('/adupdate', isAuth, adminAuth, async (req, res)=>{
     const {registrationNumber, adminApp} = req.body
     try {
         const user = await db('users').select('*').where('reg_number', '=', registrationNumber)
@@ -116,20 +116,26 @@ userRoute.put('/adupdate', async (req, res)=>{
                 await db('users').update({
                     admin: false
                 }).where('reg_number', '=', registrationNumber)
-                res.status(200).send({message: "changed successfully"})
-            }
-            if (!user[0].admin && adminApp === 'Yes'){
+                return res.status(200).send({message: user[0].name + " is removed as an admin"})
+            } else if (!user[0].admin && adminApp === 'Yes'){
                 await db('users').update({
                     admin: true
                 }).where('reg_number', '=', registrationNumber)
-                res.status(200).send({message: "changed successfully"})
+                return res.status(200).send({message: user[0].name + " is now an admin"})
+            } else if(user[0].admin && adminApp === 'Yes') {
+                return res.status(200).send({message: user[0].name + " is already an admin"})
+            } else if (!user[0].admin && adminApp === 'No'){
+                return res.status(200).send({message: user[0].name + " is not an admin"})
+            } else{
+                throw Error("unable to update admin")
             }
+            
         } else{
             throw Error('unable to find user')
         }
     } catch (error) {
         console.error(error)
-        res.status(401).send({message : "user not found"})
+        return res.status(401).send({message : "user not found"})
     }
 })
 userRoute.put('/changepassword/:reg', isAuth, async (req, res)=>{

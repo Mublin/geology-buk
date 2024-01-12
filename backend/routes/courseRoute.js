@@ -1,18 +1,17 @@
 const express = require('express')
 const knex = require('knex')
-const fs = require('fs').promises
 const multer = require('multer')
 const { isAuth, adminAuth } = require('../utils')
 const path = require('path')
 const db = knex(require('../knexfile'))
 const { Dropbox } = require('dropbox');
 const courseRoute = express.Router();
-const storage = multer.memoryStorage(); // Update storage to memory storage for handling file buffer
+const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 const dropbox = new Dropbox({ accessToken: process.env.DROPBOX_ACCESS_TOKEN });
 
-courseRoute.post('/newnote', upload.single('file'), async (req, res) => {
+courseRoute.post('/newnote', isAuth, adminAuth, upload.single('file'), async (req, res) => {
     try {
         const { courseTitle, courseCode, level } = req.body;
         const { buffer, originalname } = req.file;
@@ -71,7 +70,7 @@ courseRoute.get('/download/:filename', async (req, res) => {
     }
 });
 
-courseRoute.delete('/lecturenote/:id', async (req, res) => {
+courseRoute.delete('/lecturenote/:id', isAuth, adminAuth, async (req, res) => {
     const { id } = req.params;
     console.log(id)
     
