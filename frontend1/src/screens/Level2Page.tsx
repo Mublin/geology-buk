@@ -1,14 +1,9 @@
 import React from 'react'
 import './Level1Page.css'
-const Level1Page = () => {
+const Level2Page = () => {
   return ( 
 <div>
-
 <h2>Course Table</h2>
-
-
-
-
 <table>
     <tr>
         <th>Serial Number</th>
@@ -17,8 +12,8 @@ const Level1Page = () => {
     </tr>
     <tr>
         <td>1</td>
-        <td>CHM1241 Organic Chemistry </td>
-        <td>EES1302 Vector and Geometry</td>
+        <td>GLG2201 INTRO TO ENVIRONMENTAL SCIENCE  </td>
+        <td>GLG2202 STATISTICS FOR ENVIRONMENTAL SCIENCE </td>
     </tr>
     <tr>
         <td>2</td>
@@ -71,4 +66,4 @@ const Level1Page = () => {
   )
 }
 
-export default Level1Page
+export default Level2Page

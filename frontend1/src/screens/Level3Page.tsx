@@ -1,6 +1,6 @@
 import React from 'react'
 import './Level1Page.css'
-const Level1Page = () => {
+const Level3Page = () => {
   return ( 
 <div>
 
@@ -71,4 +71,4 @@ const Level1Page = () => {
   )
 }
 
-export default Level1Page
+export default Level3Page
