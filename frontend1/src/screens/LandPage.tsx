@@ -1,9 +1,11 @@
 import React from 'react'
 import './LandPage.css'
+import { useNavigate } from 'react-router-dom'
 
 
 
 const LandPage = () => {
+  const navigate = useNavigate()
   return (
     <div className="content">
     <div className='land'>
@@ -16,7 +18,7 @@ const LandPage = () => {
         </div>
        </div>
        <div className='geology-action'>
-       <button>Find out more</button>
+       <button onClick={()=> {navigate('/home')}}>Find out more</button>
        </div>
     </div>
     </div>
