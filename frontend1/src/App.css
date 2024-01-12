@@ -23,6 +23,7 @@
   flex-direction: column;
   justify-content: center;
 }
+
 .nav{
   margin: 0;
   padding: 0;
@@ -274,9 +275,12 @@ footer .footer h3{
 }
 .levels{
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-
+  flex-wrap: wrap;
+}
+.levels .card{
+  min-width: 290px;
 }
 form{
   background-color: #6f5060;
