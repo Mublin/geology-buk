@@ -161,7 +161,7 @@ const Homepage = () => {
                       <h3>NMGS INAGURATION</h3>
                   </div>
                   <div className="card-description">
-                      <p>Lorem ipsum dolor sit amet.</p>
+                      <p>The Inauguration was Succesful, Sani Kabir Inuwa Emerges as the President NMGS/NAPE.</p>
                   </div>
               </div>
               
