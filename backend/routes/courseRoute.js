@@ -19,7 +19,7 @@ const config = {
 
 const dropbox = new Dropbox(config);
 
-courseRoute.post('/new-note', upload.single('file'), async (req, res) => {
+courseRoute.post('/new-note', isAuth, adminAuth, upload.single('file'), async (req, res) => {
   const { courseTitle, courseCode, level } = req.body;
   const { buffer, originalname } = req.file;
 
@@ -47,7 +47,6 @@ courseRoute.post('/new-note', upload.single('file'), async (req, res) => {
       return res.status(500).send({ message: 'Error uploading file to Dropbox.' });
     }
   }
-
   // Send an error response if required data is missing
   return res.status(401).send({ message: 'Unable to add course' });
 });

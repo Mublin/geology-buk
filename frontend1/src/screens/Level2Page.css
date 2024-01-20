@@ -1,12 +1,12 @@
-.level2{
-    background-image: url(../assets/1.jpeg);
+/* .level2{
     font-family: Arial, Helvetica, sans-serif;
     flex: 1;
+
     background-size: cover;
     min-height: 85.3dvh;
     background-color:aliceblue ;
 
-}
+} */
 table {
     border-collapse: collapse;
     width: 50%;

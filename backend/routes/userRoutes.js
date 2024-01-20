@@ -107,37 +107,36 @@ userRoute.get('/:reg', isAuth, async (req, res)=>{
         return res.status(401).send({message: "Invalid user"})
     }
 })
-userRoute.put('/adupdate', isAuth, adminAuth, async (req, res)=>{
-    const {registrationNumber, adminApp} = req.body
+userRoute.put('/adupdate', isAuth, adminAuth, async (req, res) => {
+    const { registrationNumber, adminApp } = req.body;
+
     try {
-        const user = await db('users').select('*').where('reg_number', '=', registrationNumber)
-        if (user[0]) {
-            if (user[0].admin && adminApp === 'No') {
-                await db('users').update({
-                    admin: false
-                }).where('reg_number', '=', registrationNumber)
-                return res.status(200).send({message: user[0].name + " is removed as an admin"})
-            } else if (!user[0].admin && adminApp === 'Yes'){
-                await db('users').update({
-                    admin: true
-                }).where('reg_number', '=', registrationNumber)
-                return res.status(200).send({message: user[0].name + " is now an admin"})
-            } else if(user[0].admin && adminApp === 'Yes') {
-                return res.status(200).send({message: user[0].name + " is already an admin"})
-            } else if (!user[0].admin && adminApp === 'No'){
-                return res.status(200).send({message: user[0].name + " is not an admin"})
-            } else{
-                throw Error("unable to update admin")
-            }
-            
-        } else{
-            throw Error('unable to find user')
+        const [user] = await db('users').select('*').where('reg_number', '=', registrationNumber);
+
+        if (!user) {
+            throw new Error('User not found');
         }
+
+        const isUserAdmin = user.admin;
+        const isAdminUpdateRequested = adminApp === 'Yes';
+
+        if (isUserAdmin && !isAdminUpdateRequested) {
+            return res.status(200).send({ message: `${user.name} is removed as an admin` });
+        } else if (!isUserAdmin && isAdminUpdateRequested) {
+            return res.status(200).send({ message: `${user.name} is now an admin` });
+        } else if (isUserAdmin && isAdminUpdateRequested) {
+            return res.status(200).send({ message: `${user.name} is already an admin` });
+        } else if (!isUserAdmin && !isAdminUpdateRequested) {
+            return res.status(200).send({ message: `${user.name} is not an admin` });
+        } else {
+            throw new Error("Unable to update admin");
+        }
+
     } catch (error) {
-        console.error(error)
-        return res.status(401).send({message : "user not found"})
+        return res.status(500).send({ error: error.message });
     }
-})
+});
+
 userRoute.put('/changepassword/:reg', isAuth, async (req, res)=>{
     const {registrationNumber, password, newPassword} = req.body
     try {
