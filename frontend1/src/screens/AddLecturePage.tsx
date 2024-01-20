@@ -3,8 +3,11 @@ import React, { ChangeEvent, MouseEvent, useContext, useState } from 'react'
 import { toast } from 'react-toastify'
 import { UserContext } from '../context/useUserHook'
 import Loader from '../components/Loader'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const AddLecturePage = () => {
+    const {search} = useLocation()
+    const code = search
     const {state} = useContext(UserContext)
     const {userDetails} = state
     const [courseTitle, setCourseTitle] = useState<string>('')
@@ -12,6 +15,14 @@ const AddLecturePage = () => {
     const [lectureNote, setLectureNote] = useState<any>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [level, setLevel] = useState<number>(0)
+    const addHandler =async () => {
+      try {
+        const {data} = await axios.get(`http://localhost:9000/api/course/code`)
+        window.open(data)
+      } catch (error) {
+        toast.error('Unable to connect')
+      }
+    }
     const submitHandler = async (e: MouseEvent<HTMLFormElement>) =>{
         e.preventDefault()
         if (lectureNote) {
@@ -24,7 +35,7 @@ const AddLecturePage = () => {
                 formData.append('level', level.toString());
                 const {data} :{data: {
                     message: string
-                }} = await axios.post(`/api/course/newnote`, formData, {
+                }} = await axios.post(`http://localhost:9000/api/course/new-note`, formData, {
                   headers: {
                     authorization: `Bearer ${userDetails?.tokened}`
                   }
@@ -62,6 +73,7 @@ const AddLecturePage = () => {
 
           <button type='submit'>Submit lecture note</button>
         </form>
+        <button onClick={addHandler}>add</button>
       </div>
     </div>
   )

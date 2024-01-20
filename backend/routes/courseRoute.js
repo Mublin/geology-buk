@@ -3,53 +3,100 @@ const knex = require('knex')
 const multer = require('multer')
 const { isAuth, adminAuth } = require('../utils')
 const path = require('path')
+const cors = require('cors')
 const db = knex(require('../knexfile'))
 const { Dropbox } = require('dropbox');
 const courseRoute = express.Router();
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-const dropbox = new Dropbox({ accessToken: process.env.DROPBOX_ACCESS_TOKEN });
+const config = {
+  fetch,
+  clientId: process.env.db_key,
+  clientSecret: process.env.db_secret,
+};
 
-courseRoute.post('/newnote', isAuth, adminAuth, upload.single('file'), async (req, res) => {
+const dropbox = new Dropbox(config);
+
+courseRoute.post('/new-note', upload.single('file'), async (req, res) => {
+  const { courseTitle, courseCode, level } = req.body;
+  const { buffer, originalname } = req.file;
+
+  if (courseTitle && level && buffer) {
     try {
-        const { courseTitle, courseCode, level } = req.body;
-        const { buffer, originalname } = req.file;
+      // Upload the file to Dropbox using the configured access token
+      const dropboxResponse = await dropbox.filesUpload({
+        path: `/${new Date().getTime()}_${originalname}`,
+        contents: buffer,
+      });
+      // Insert data into the 'lecture_note' table in the database
+      await db('lecture_note').insert({
+        course_name: courseTitle,
+        course_title: courseTitle,
+        level,
+        course_code: courseCode,
+        file_path: dropboxResponse.result.path_display,
+        lecture_note: originalname,
+      });
 
-        if (!courseTitle || !level || !buffer) {
-            // Send an error response if required data is missing
-            return res.status(400).send({ message: 'Incomplete data. Unable to add course.' });
-        }
-
-        // Upload the file to Dropbox
-        const dropboxResponse = await dropbox.filesUpload({
-            path: `/${new Date().getTime()}_${originalname}`,
-            contents: buffer,
-        });
-
-        // Insert data into the 'lecture_note' table in the database
-        await db('lecture_note').insert({
-            course_name: courseTitle,
-            course_title: courseTitle,
-            level,
-            course_code: courseCode,
-            file_path: dropboxResponse.result.path_display,
-            lecture_note: originalname,
-        });
-
-        // Send a success response
-        return res.status(201).send({ message: 'New course or lecture note added successfully' });
+      // Send a success response
+      return res.status(201).send({ message: 'New course or lecture note added successfully' });
     } catch (error) {
-        // Handle specific Dropbox error: missing_scope
-        if (error.status === 401 && error.error && error.error['.tag'] === 'missing_scope') {
-            return res.status(401).send({ message: 'Insufficient Dropbox permissions. Please check app settings.' });
-        }
-
-        console.error('Error uploading file to Dropbox:', error);
-        return res.status(500).send({ message: 'Error uploading file to Dropbox.' });
+      console.error('Error uploading file to Dropbox:', error);
+      return res.status(500).send({ message: 'Error uploading file to Dropbox.' });
     }
+  }
+
+  // Send an error response if required data is missing
+  return res.status(401).send({ message: 'Unable to add course' });
 });
 
+// Your existing /auth route
+courseRoute.get('/auth', async (req, res) => {
+  const { code } = req.query;
+  try {
+    const token = await dropbox.auth.getAccessTokenFromCode(`http://localhost:${process.env.PORT}/api/course/auth`, code);
+
+    // Optionally, store the access token securely for future use
+    if (token.result.refresh_token) {
+      dropbox.auth.setRefreshToken(token.result.refresh_token);
+      return res.status(200).redirect(`http://localhost:5173/new-note`);
+    } else {
+      // Handle the case where a refresh token is not available
+      return res.status(401).send('Refresh token not available.');
+    }
+  } catch (error) {
+    console.error('Error getting access token:', error);
+    res.status(500).send('Error getting access token.');
+  }
+});
+
+courseRoute.get('/code', async (req, res) => {
+  if (!dropbox.auth.getAccessToken()) {
+    // If not authenticated, redirect to Dropbox authorization URL
+    const authUrl = await dropbox.auth.getAuthenticationUrl(
+      `http://localhost:${process.env.PORT}/api/course/auth`,
+      null,
+      'code',
+      'offline',
+      null,
+      'none',
+      false
+    );
+    return res.status(200).send(authUrl);
+  }
+});
+
+
+
+
+
+
+
+
+
+
+  
 courseRoute.get('/lecturenotes', async(req, res)=>{
     const data = await db('lecture_note').select('*')
     res.status(200).send(data)
