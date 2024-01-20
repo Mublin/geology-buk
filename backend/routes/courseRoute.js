@@ -6,6 +6,7 @@ const path = require('path')
 const cors = require('cors')
 const db = knex(require('../knexfile'))
 const { Dropbox } = require('dropbox');
+const { hostname } = require('os')
 const courseRoute = express.Router();
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
@@ -54,13 +55,14 @@ courseRoute.post('/new-note', upload.single('file'), async (req, res) => {
 // Your existing /auth route
 courseRoute.get('/auth', async (req, res) => {
   const { code } = req.query;
+  const hostname = req.get('host');
   try {
-    const token = await dropbox.auth.getAccessTokenFromCode(`http://localhost:${process.env.PORT}/api/course/auth`, code);
+    const token = await dropbox.auth.getAccessTokenFromCode(`https://${hostname}/api/course/auth`, code);
 
     // Optionally, store the access token securely for future use
     if (token.result.refresh_token) {
       dropbox.auth.setRefreshToken(token.result.refresh_token);
-      return res.status(200).redirect(`http://localhost:5173/new-note`);
+      return res.status(200).redirect(`https://${hostname}/new-note`);
     } else {
       // Handle the case where a refresh token is not available
       return res.status(401).send('Refresh token not available.');
@@ -73,9 +75,10 @@ courseRoute.get('/auth', async (req, res) => {
 
 courseRoute.get('/code', async (req, res) => {
   if (!dropbox.auth.getAccessToken()) {
+    const hostname = req.get('host');
     // If not authenticated, redirect to Dropbox authorization URL
     const authUrl = await dropbox.auth.getAuthenticationUrl(
-      `http://localhost:${process.env.PORT}/api/course/auth`,
+      `https://${hostname}/api/course/auth`,
       null,
       'code',
       'offline',
