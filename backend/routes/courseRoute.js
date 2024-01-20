@@ -3,90 +3,102 @@ const knex = require('knex')
 const multer = require('multer')
 const { isAuth, adminAuth } = require('../utils')
 const path = require('path')
+const cors = require('cors')
 const db = knex(require('../knexfile'))
 const { Dropbox } = require('dropbox');
+const { hostname } = require('os')
 const courseRoute = express.Router();
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-const dropbox = new Dropbox({ accessToken: process.env.DROPBOX_ACCESS_TOKEN });
+const config = {
+  fetch,
+  clientId: process.env.db_key,
+  clientSecret: process.env.db_secret,
+};
 
-courseRoute.post('/newnote', isAuth, adminAuth, upload.single('file'), async (req, res) => {
+const dropbox = new Dropbox(config);
+
+courseRoute.post('/new-note', isAuth, adminAuth, upload.single('file'), async (req, res) => {
+  const { courseTitle, courseCode, level } = req.body;
+  const { buffer, originalname } = req.file;
+
+  if (courseTitle && level && buffer) {
     try {
-        // Check and refresh Dropbox access token if needed
-        await checkAndRefreshToken();
+      // Upload the file to Dropbox using the configured access token
+      const dropboxResponse = await dropbox.filesUpload({
+        path: `/${new Date().getTime()}_${originalname}`,
+        contents: buffer,
+      });
+      // Insert data into the 'lecture_note' table in the database
+      await db('lecture_note').insert({
+        course_name: courseTitle,
+        course_title: courseTitle,
+        level,
+        course_code: courseCode,
+        file_path: dropboxResponse.result.path_display,
+        lecture_note: originalname,
+      });
 
-        const { courseTitle, courseCode, level } = req.body;
-        const { buffer, originalname } = req.file;
-
-        if (!courseTitle || !level || !buffer) {
-            // Send an error response if required data is missing
-            return res.status(400).send({ message: 'Incomplete data. Unable to add course.' });
-        }
-
-        // Upload the file to Dropbox
-        const dropboxResponse = await dropbox.filesUpload({
-            path: `/${new Date().getTime()}_${originalname}`,
-            contents: buffer,
-        });
-
-        // Insert data into the 'lecture_note' table in the database
-        await db('lecture_note').insert({
-            course_name: courseTitle,
-            course_title: courseTitle,
-            level,
-            course_code: courseCode,
-            file_path: dropboxResponse.result.path_display,
-            lecture_note: originalname,
-        });
-
-        // Send a success response
-        return res.status(201).send({ message: 'New course or lecture note added successfully' });
+      // Send a success response
+      return res.status(201).send({ message: 'New course or lecture note added successfully' });
     } catch (error) {
-        // Handle specific Dropbox error: missing_scope
-        if (error.status === 401 && error.error && error.error['.tag'] === 'missing_scope') {
-            return res.status(401).send({ message: 'Insufficient Dropbox permissions. Please check app settings.' });
-        }
-
-        // Check for token expiration error and attempt token refresh
-        if (error.status === 401 && error.error && error.error.error_summary.includes('expired_token')) {
-            try {
-                await checkAndRefreshToken();
-                // Retry the API call after token refresh
-                // Note: This retry may not be suitable for all scenarios and may need adjustment based on your application logic.
-                // You may want to inform the user to retry their operation, or handle it differently depending on your use case.
-                // For simplicity, this example just retries the operation.
-                return await courseRoute.post('/newnote', req, res);
-            } catch (refreshError) {
-                console.error('Error refreshing token:', refreshError);
-                return res.status(500).send({ message: 'Error refreshing Dropbox access token.' });
-            }
-        }
-
-        console.error('Error uploading file to Dropbox:', error);
-        return res.status(500).send({ message: 'Error uploading file to Dropbox.' });
+      console.error('Error uploading file to Dropbox:', error);
+      return res.status(500).send({ message: 'Error uploading file to Dropbox.' });
     }
+  }
+  // Send an error response if required data is missing
+  return res.status(401).send({ message: 'Unable to add course' });
 });
 
-async function checkAndRefreshToken() {
-    try {
-        // Make a simple API call to check token validity
-        await dropbox.filesGetMetadata({ path: '' });
-    } catch (error) {
-        // If the error indicates an expired token, refresh the token
-        if (error.status === 401 && error.error && error.error.error_summary.includes('expired_token')) {
-            const refreshResponse = await dropbox.authTokenRefresh();
-            const newAccessToken = refreshResponse.result.access_token;
-            // Update the Dropbox instance with the new access token
-            dropbox.setAccessToken(newAccessToken);
-        } else {
-            // Handle other errors
-            console.error('Error checking or refreshing token:', error);
-        }
+// Your existing /auth route
+courseRoute.get('/auth', async (req, res) => {
+  const { code } = req.query;
+  const hostname = req.get('host');
+  try {
+    const token = await dropbox.auth.getAccessTokenFromCode(`https://${hostname}/api/course/auth`, code);
+
+    // Optionally, store the access token securely for future use
+    if (token.result.refresh_token) {
+      dropbox.auth.setRefreshToken(token.result.refresh_token);
+      return res.status(200).redirect(`https://${hostname}/new-note`);
+    } else {
+      // Handle the case where a refresh token is not available
+      return res.status(401).send('Refresh token not available.');
     }
-}
+  } catch (error) {
+    console.error('Error getting access token:', error);
+    res.status(500).send('Error getting access token.');
+  }
+});
+
+courseRoute.get('/code', async (req, res) => {
+  if (!dropbox.auth.getAccessToken()) {
+    const hostname = req.get('host');
+    // If not authenticated, redirect to Dropbox authorization URL
+    const authUrl = await dropbox.auth.getAuthenticationUrl(
+      `https://${hostname}/api/course/auth`,
+      null,
+      'code',
+      'offline',
+      null,
+      'none',
+      false
+    );
+    return res.status(200).send(authUrl);
+  }
+});
 
 
+
+
+
+
+
+
+
+
+  
 courseRoute.get('/lecturenotes', async(req, res)=>{
     const data = await db('lecture_note').select('*')
     res.status(200).send(data)
