@@ -6,8 +6,7 @@ import Loader from '../components/Loader'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 const AddLecturePage = () => {
-    const {search} = useLocation()
-    const code = search
+    const navigate = useNavigate()
     const {state} = useContext(UserContext)
     const {userDetails} = state
     const [courseTitle, setCourseTitle] = useState<string>('')
@@ -54,9 +53,29 @@ const AddLecturePage = () => {
             }
         }
     }
+    const questionHandler = (answer: string) =>{
+      if (answer === 'Yes') {
+        document.querySelector('.blur')?.classList.remove('blur')
+        document.querySelector('.confirmation')?.classList.add('not-visible')
+        addHandler()
+      } else {
+        navigate('/home')
+      }
+    }
   return ( isLoading ? <Loader /> :(
     <div className='content'>
-      <div className="register">
+      <div className="confirmation">
+        <div>
+          <div className="que">
+            <h3>Do you want to add a lecture note?</h3>
+          </div>
+          <div className="ans">
+            <button onClick={()=>{questionHandler('Yes')}}>Yes</button>
+            <button onClick={()=>{questionHandler('No')}}>No</button>
+          </div>
+        </div>
+      </div>
+      <div className="register blur">
         <form onSubmit={submitHandler}>
           <label htmlFor="">
             Course Title: <input type="text" name='courseTitle' value={courseTitle} onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setCourseTitle(e.target.value)}}  />
@@ -73,7 +92,6 @@ const AddLecturePage = () => {
 
           <button type='submit'>Submit lecture note</button>
         </form>
-        <button onClick={addHandler}>add</button>
       </div>
     </div>
   )

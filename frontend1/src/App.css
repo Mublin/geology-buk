@@ -460,20 +460,33 @@ button:active{
     align-items: center;
     justify-content: center;
 }
-/* @media screen and (max-width: 845px) {
-  #contact .a2, #contact .a1{
-    flex: 1;
-    background-color: #000000;
-    color: #fff;
-    margin: .5rem ;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  } 
-} */
 #contact .contact label input{
   width: 22dvw;
 }
 #contact .contact button{
   width: 25dvw;
+}
+
+.confirmation{
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.confirmation::before{
+  content: '';
+}
+.blur{
+  filter: blur(6px);
+}
+.ans button{
+  margin: 0 2rem;
+}
+.not-visible{
+  display: none;
 }
