@@ -17,7 +17,7 @@ const AddLecturePage = () => {
     const [level, setLevel] = useState<number>(0)
     const addHandler =async () => {
       try {
-        const {data} = await axios.get(`http://localhost:9000/api/course/code`)
+        const {data} = await axios.get(`/api/course/code`)
         window.open(data)
       } catch (error) {
         toast.error('Unable to connect')
@@ -35,7 +35,7 @@ const AddLecturePage = () => {
                 formData.append('level', level.toString());
                 const {data} :{data: {
                     message: string
-                }} = await axios.post(`http://localhost:9000/api/course/new-note`, formData, {
+                }} = await axios.post(`/api/course/new-note`, formData, {
                   headers: {
                     authorization: `Bearer ${userDetails?.tokened}`
                   }
