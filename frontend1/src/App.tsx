@@ -22,9 +22,6 @@ import PasswordScreen from './screens/PasswordScreen'
 import LectureNotesPage from './screens/LectureNotesPage'
 import AddAdminPage from './screens/AddAdminPage'
 import LevelPage from './screens/LevelPage'
-import Level2Page from './screens/Level2Page'
-import Level3Page from './screens/Level3Page'
-import Level4Page from './screens/Level4Page'
 
 function App() {
   return (
