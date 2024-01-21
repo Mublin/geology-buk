@@ -1,15 +1,18 @@
 import axios from 'axios'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { toast } from 'react-toastify'
 import { UserContext } from '../context/useUserHook'
 import { useNavigate } from 'react-router-dom'
+import Loader from '../components/Loader'
 
 const ConfirmPage = () => {
     const navigate = useNavigate()
     const {state} = useContext(UserContext)
     const {userDetails} = state
+    const [loading, setLoading] = useState<boolean>(false)
     const addHandler =async () => {
       try {
+        setLoading(true)
         const {data} = await axios.get(`/api/course/code`, {
             headers: {
                 authorization: `Bearer ${userDetails?.tokened}`
@@ -18,18 +21,21 @@ const ConfirmPage = () => {
         window.location.href = data
       } catch (error) {
         toast.error('Unable to connect')
+      } finally{
+        setLoading(false)
       }
     }
-    const questionHandler = (answer: string) =>{
+    const questionHandler = async (answer: string) =>{
       if (answer === 'Yes') {
-        addHandler()
+        await addHandler()
       } else {
         navigate('/home')
       }
     }
   return (
     <div className='content'>
-      <div className="confirmation">
+      {loading ? <Loader /> : (
+        <div className="confirmation">
         <div>
           <div className="que">
             <h3>Do you want to add a lecture note?</h3>
@@ -40,6 +46,7 @@ const ConfirmPage = () => {
           </div>
         </div>
       </div>
+      )}
     </div>
   )
 }
