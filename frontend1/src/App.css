@@ -481,12 +481,6 @@ button:active{
 .confirmation::before{
   content: '';
 }
-.blur{
-  filter: blur(6px);
-}
 .ans button{
   margin: 0 2rem;
-}
-.not-visible{
-  display: none;
 }

@@ -31,7 +31,7 @@ const NavBar = () => {
               <p><Link className='nav-item' to={'/home'}>Postgraduate</Link></p>
               <p><Link className='nav-item' to={'/home'}>Study materials</Link></p>
               { userDetails?.isAdmin && <p><Link className='nav-item' to={'/updateadmin'}>Admin page</Link></p>}
-              { userDetails?.isAdmin && <p><Link className='nav-item' to={'/new-note'}>Add lecture Note</Link></p>}
+              { userDetails?.isAdmin && <p><Link className='nav-item' to={'/confirm'}>Add lecture Note</Link></p>}
               { <p><Link className='nav-item' to={'/lecturenotes'}>Lecture Notes</Link></p>}
             </div>
           </div>
@@ -87,7 +87,7 @@ const NavBar = () => {
                     <p><Link className='nav-item' to={'/home'}>Postgraduate</Link></p>
                     <p><Link className='nav-item' to={'/home'}>Study materials</Link></p>
                     { userDetails?.isAdmin && <p><Link className='nav-item' to={'/updateadmin'}>Admin page</Link></p>}
-                    {userDetails?.isAdmin && <p><Link className='nav-item' to={'/new-note'}>Add lecture Note</Link></p>}
+                    {userDetails?.isAdmin && <p><Link className='nav-item' to={'/confirm'}>Add lecture Note</Link></p>}
                     {<p><Link className='nav-item' to={'/lecturenotes'}>Lecture Notes</Link></p>}
                   </div>
                 </div>

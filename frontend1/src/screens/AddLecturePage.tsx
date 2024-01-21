@@ -14,14 +14,6 @@ const AddLecturePage = () => {
     const [lectureNote, setLectureNote] = useState<any>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [level, setLevel] = useState<number>(0)
-    const addHandler =async () => {
-      try {
-        const {data} = await axios.get(`/api/course/code`)
-        window.open(data)
-      } catch (error) {
-        toast.error('Unable to connect')
-      }
-    }
     const submitHandler = async (e: MouseEvent<HTMLFormElement>) =>{
         e.preventDefault()
         if (lectureNote) {
@@ -53,29 +45,10 @@ const AddLecturePage = () => {
             }
         }
     }
-    const questionHandler = (answer: string) =>{
-      if (answer === 'Yes') {
-        document.querySelector('.blur')?.classList.remove('blur')
-        document.querySelector('.confirmation')?.classList.add('not-visible')
-        addHandler()
-      } else {
-        navigate('/home')
-      }
-    }
+
   return ( isLoading ? <Loader /> :(
     <div className='content'>
-      <div className="confirmation">
-        <div>
-          <div className="que">
-            <h3>Do you want to add a lecture note?</h3>
-          </div>
-          <div className="ans">
-            <button onClick={()=>{questionHandler('Yes')}}>Yes</button>
-            <button onClick={()=>{questionHandler('No')}}>No</button>
-          </div>
-        </div>
-      </div>
-      <div className="register blur">
+      <div className="register">
         <form onSubmit={submitHandler}>
           <label htmlFor="">
             Course Title: <input type="text" name='courseTitle' value={courseTitle} onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setCourseTitle(e.target.value)}}  />

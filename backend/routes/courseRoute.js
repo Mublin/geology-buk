@@ -72,7 +72,7 @@ courseRoute.get('/auth', async (req, res) => {
   }
 });
 
-courseRoute.get('/code', async (req, res) => {
+courseRoute.get('/code', isAuth, adminAuth, async (req, res) => {
   if (!dropbox.auth.getAccessToken()) {
     const hostname = req.get('host');
     // If not authenticated, redirect to Dropbox authorization URL

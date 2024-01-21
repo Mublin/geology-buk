@@ -22,6 +22,7 @@ import PasswordScreen from './screens/PasswordScreen'
 import LectureNotesPage from './screens/LectureNotesPage'
 import AddAdminPage from './screens/AddAdminPage'
 import LevelPage from './screens/LevelPage'
+import ConfirmPage from './screens/ConfirmPage'
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path='/programs/undergraduate/:level' element={<LevelPage />} />
         <Route path='/updateadmin' element={<AdminRoute><AddAdminPage /></AdminRoute>} />
         <Route path='/home' element={<Homepage />}/>
+        <Route path='/confirm' element={<ConfirmPage />} />
         <Route path='/new-note' element={<AdminRoute><AddLecturePage /></AdminRoute>} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/programs/undergraduate' element={<CoursesPage />} />
