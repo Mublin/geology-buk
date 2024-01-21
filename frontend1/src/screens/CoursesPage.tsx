@@ -11,7 +11,7 @@ const CoursesPage = () => {
         </div>
         <div className="levels">
         <div className='card'>
-        <Link to={'/programs/1'} style={{textDecoration: 'none'}}>
+        <Link to={'/programs/undergraduate/1'} style={{textDecoration: 'none'}}>
         <div className="card-image">
             <img src='https://github.com/Mublin/geology-buk/blob/main/frontend1/src/assets/IMG_3417.JPG?raw=true' alt="" />
         </div>
@@ -26,7 +26,7 @@ const CoursesPage = () => {
         </Link>
     </div>
     <div className='card'>
-    <Link to={'/programs/2'} style={{textDecoration: 'none'}}>
+    <Link to={'/programs/undergraduate/2'} style={{textDecoration: 'none'}}>
         <div className="card-image">
             <img src='https://github.com/Mublin/geology-buk/blob/main/frontend1/src/assets/IMG_3418.JPG?raw=true' alt="" />
         </div>
@@ -41,7 +41,7 @@ const CoursesPage = () => {
         </Link>
     </div>
     <div className='card'>
-    <Link to={'/programs/3'} style={{textDecoration: 'none'}}>
+    <Link to={'/programs/undergraduate/3'} style={{textDecoration: 'none'}}>
         <div className="card-image">
             <img src='https://github.com/Mublin/geology-buk/blob/main/frontend1/src/assets/IMG_3419.JPG?raw=true' alt="" />
         </div>
@@ -58,7 +58,7 @@ const CoursesPage = () => {
     
     
     <div className='card'>
-    <Link to={'/programs/4'} style={{textDecoration: 'none'}}>
+    <Link to={'/programs/undergraduate/4'} style={{textDecoration: 'none'}}>
         <div className="card-image">
             <img src='https://github.com/Mublin/geology-buk/blob/main/frontend1/src/assets/IMG_3420.JPG?raw=true' alt="" />
         </div>
