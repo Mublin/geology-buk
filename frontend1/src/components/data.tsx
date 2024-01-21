@@ -76,7 +76,7 @@ const levelCourses = {
         },{
             courseCode: 'EES1302', 
             courseName: 'Vector and Geometry'
-        }],
+        }]}],
     '3': [{
         first: [],
         second: []

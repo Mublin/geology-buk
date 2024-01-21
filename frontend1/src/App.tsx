@@ -45,7 +45,7 @@ function App() {
         <Route path='/programs/4' element={<Level4Page />} />
         <Route path='/updateadmin' element={<AdminRoute><AddAdminPage /></AdminRoute>} />
         <Route path='/home' element={<Homepage />}/>
-        <Route path='/new-note' element={<AddLecturePage />} />
+        <Route path='/new-note' element={<AdminRoute><AddLecturePage /></AdminRoute>} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/programs/undergraduate' element={<CoursesPage />} />
         <Route path='/programs/undergraduate/:program' element={<ProtectedRoute><CoursePage /> </ProtectedRoute>} />
