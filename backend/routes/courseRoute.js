@@ -105,18 +105,19 @@ courseRoute.get('/lecturenotes', async(req, res)=>{
 })
 
 courseRoute.get('/download/:filename', async (req, res) => {
-    try {
-        const filename = req.params.filename;
-        const dropboxResponse = await dropbox.filesDownload({ path: `${filename}` });
-        
-        // You can send the file to the client or save it locally, depending on your needs
-        res.set('Content-Disposition', `attachment; filename="${filename}"`);
-        res.set('Content-Type', 'application/octet-stream');
-        res.send(dropboxResponse.result.fileBinary);
-    } catch (error) {
-        console.error('Error downloading file from Dropbox:', error);
-        return res.status(500).send({ message: 'Error downloading file from Dropbox.' });
-    }
+  try {
+    const filename = req.params.filename;
+    console.log(filename);
+    const dropboxResponse = await dropbox.filesDownload({ path: `${filename}` });
+
+    // You can send the file to the client or save it locally, depending on your needs
+    res.set('Content-Disposition', `attachment; filename="${filename}"`);
+    res.set('Content-Type', 'application/octet-stream');
+    res.send(dropboxResponse.result.fileBinary);
+  } catch (error) {
+    console.error('Error downloading file from Dropbox:', error);
+    return res.status(500).send({ message: 'Error downloading file from Dropbox.' });
+  }
 });
 
 courseRoute.delete('/lecturenote/:id', isAuth, adminAuth, async (req, res) => {
