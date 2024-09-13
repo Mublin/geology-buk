@@ -70,7 +70,7 @@ const Homepage = () => {
                       <h3>STUDY MATERIALS GEOLOGY</h3>
                   </div>
                   <div className="card-description">
-                      <p>Lorem ipsum dolor sit amet.</p>
+                      <p>Lecture notes and other study materials such as jornals, papers, quizzes, e.t.c.</p>
                   </div>
               </div>
               
@@ -84,7 +84,7 @@ const Homepage = () => {
                       <h3>INFORMATION ABOUT GEOLOGY</h3>
                   </div>
                   <div className="card-description">
-                      <p>Lorem ipsum dolor sit amet.</p>
+                      <p>Know more about what you studying.</p>
                   </div>
               </div>
               
@@ -98,7 +98,7 @@ const Homepage = () => {
                       <h3>EXAMINATION AND TEST PAST QUESTIONS</h3>
                   </div>
                   <div className="card-description">
-                      <p>Lorem ipsum dolor sit amet.</p>
+                      <p>Questions to help you ace your test and exams and give you a sample of questions to expect.</p>
                   </div>
               </div>
               
@@ -112,7 +112,7 @@ const Homepage = () => {
                       <h3>e-LIBRARY</h3>
                   </div>
                   <div className="card-description">
-                      <p>Lorem ipsum dolor sit amet.</p>
+                      <p>Get link on your lectures.</p>
                   </div>
               </div>
               
@@ -133,7 +133,7 @@ const Homepage = () => {
                       <h3>LEVEL 3 AND 4 FIELD TRIP</h3>
                   </div>
                   <div className="card-description">
-                      <p>Lorem ipsum dolor sit amet.</p>
+                      <p>Annual field trip for level 3 and 4 students.</p>
                   </div>
               </div>
               
@@ -147,7 +147,7 @@ const Homepage = () => {
                       <h3>GEOLOGY MOVIE NIGHT</h3>
                   </div>
                   <div className="card-description">
-                      <p>Lorem ipsum dolor sit amet.</p>
+                      <p>Event that usually take place during the geological week.</p>
                   </div>
               </div>
               
@@ -161,7 +161,7 @@ const Homepage = () => {
                       <h3>NMGS INAGURATION</h3>
                   </div>
                   <div className="card-description">
-                      <p>The Inauguration was Succesful, Sani Kabir Inuwa Emerges as the President NMGS/NAPE.</p>
+                      <p>Sani Kabir Inuwa Emerges as the President NMGS/NAPE.</p>
                   </div>
               </div>
               

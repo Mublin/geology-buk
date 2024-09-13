@@ -25,7 +25,7 @@ const ContactPage = () => {
       <div className="a2">
       <form className='contact' onSubmit={submitHandler}>
           <label htmlFor="" style={{marginTop: '.6rem'}}>
-            Name:<input type="text" name='name' value={name} placeholder='Yusuf Zaki' required onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setName(e.target.value)}}  />
+            Name:<input type="text" name='name' value={name} placeholder='Abdulbasit Ewaetola' required onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setName(e.target.value)}}  />
           </label>
           <label htmlFor="">
             Number: <input type="tel" name='telephone' placeholder='+234810000000' required value={number} onChange={(e: ChangeEvent<HTMLInputElement>)=>{ setNumber(e.target.value)}}  />
